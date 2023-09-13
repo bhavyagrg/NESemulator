@@ -1,5 +1,7 @@
 #pragma once
+#include <cstdint>
 #include<array>
+#include "CPU.h"
 
 class Bus
 {
@@ -8,7 +10,7 @@ public:
 	~Bus();
 
 	//Devices connected to the bus
-	//bg6502 cpu;
+	CPU cpu;
 
 	// Fake RAM
 	std::array<uint8_t, 64 * 1024> ram; 

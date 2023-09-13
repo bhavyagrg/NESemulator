@@ -1,7 +1,7 @@
 #pragma once
-#include <cstdint>
 #include<string>
 #include<vector>
+#include <map>
 
 class Bus;
 
@@ -12,18 +12,6 @@ public:
 	CPU();
 	~CPU();
 
-	enum FLAGS
-	{
-		C = (1 << 0), // Carry Bit
-		Z = (1 << 1), // Zero
-		I = (1 << 2), // Disable Interuppts
-		D = (1 << 3), // Decimal Mode
-		B = (1 << 4), // Break
-		U = (1 << 5), // Unused
-		V = (1 << 6), // Overflow
-		N = (1 << 7), // Negative
-	};
-
 	uint8_t ac = 0x00; // Accumulator Register;
 	uint8_t x = 0x00; // X Register
 	uint8_t y = 0x00; // Y Register
@@ -32,7 +20,6 @@ public:
 	uint8_t status = 0x00; //Status Register
 
 	// bus is passed as a pointer to the actual bus , and it's address is given to the cpu
-	void ConnectBus(Bus* bus) { this->bus = bus; }
 
 	// Addressing Modes
 	uint8_t IMP(); uint8_t IMM();
@@ -66,6 +53,12 @@ public:
 	void interruptRequestSig();
 	void nonMaskableInterruptRequestSiq(); // can never be disabled
 
+	bool complete();
+
+	void ConnectBus(Bus* bus) { this->bus = bus; }
+
+	std::map<uint16_t, std::string> disassemble(uint16_t nStart, uint16_t nStop);
+
 	// Internal Helper functions
 	uint8_t fetch();
 	uint8_t fetched = 0x00; // fetched data will be stored here
@@ -76,7 +69,17 @@ public:
 	uint8_t opcode = 0x00;
 	uint8_t cycles_left = 0;
 
-
+	enum FLAGS
+	{
+		C = (1 << 0), // Carry Bit
+		Z = (1 << 1), // Zero
+		I = (1 << 2), // Disable Interuppts
+		D = (1 << 3), // Decimal Mode
+		B = (1 << 4), // Break
+		U = (1 << 5), // Unused
+		V = (1 << 6), // Overflow
+		N = (1 << 7), // Negative
+	};
 
 private:
 	Bus *bus = nullptr;
@@ -86,6 +89,12 @@ private:
 	// Convenience functions to access status register
 	uint8_t GetFlag(FLAGS flgs);
 	void SetFlag(FLAGS flgs, bool value);
+
+#ifdef LOGMODE
+private:
+	FILE* logfile = nullptr;
+#endif
+};
 
 	// 16 * 16 table of opcodes
 	struct INSTRUCTION 
