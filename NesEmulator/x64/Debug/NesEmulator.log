@@ -7,6 +7,127 @@ D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(303,15): error C
 D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
 D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(316,15): error C2601: 'CPU::IZY': local function definitions are illegal
 D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
-D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(321,22): fatal  error C1075: '{': no matching token found
-  PixelGameEngine.cpp
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(333,15): error C2601: 'CPU::REL': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(344,15): error C2601: 'CPU::fetch': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(354,15): error C2601: 'CPU::AND': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(363,15): error C2601: 'CPU::ASL': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(378,15): error C2601: 'CPU::BCS': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(393,15): error C2601: 'CPU::BCC': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(408,15): error C2601: 'CPU::BEQ': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(423,15): error C2601: 'CPU::BIT': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(434,15): error C2601: 'CPU::BMI': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(449,15): error C2601: 'CPU::BNE': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(464,15): error C2601: 'CPU::BPL': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(479,15): error C2601: 'CPU::BRK': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(498,15): error C2601: 'CPU::BVC': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(513,15): error C2601: 'CPU::BVS': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(528,15): error C2601: 'CPU::CLC': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(535,15): error C2601: 'CPU::CLD': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(541,15): error C2601: 'CPU::CLI': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(547,15): error C2601: 'CPU::CLV': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(553,15): error C2601: 'CPU::CMP': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(563,15): error C2601: 'CPU::CPX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(573,15): error C2601: 'CPU::CPY': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(583,15): error C2601: 'CPU::DEC': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(593,15): error C2601: 'CPU::DEX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(601,15): error C2601: 'CPU::DEY': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(609,15): error C2601: 'CPU::EOR': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(618,15): error C2601: 'CPU::INC': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(628,15): error C2601: 'CPU::INX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(639,15): error C2601: 'CPU::INY': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(649,15): error C2601: 'CPU::JMP': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(658,15): error C2601: 'CPU::JSR': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(675,15): error C2601: 'CPU::LDA': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(688,15): error C2601: 'CPU::LDX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(701,15): error C2601: 'CPU::LDY': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(710,15): error C2601: 'CPU::LSR': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(724,16): error C2601: 'CPU::NOP': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(743,15): error C2601: 'CPU::ORA': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(753,15): error C2601: 'CPU::ADC': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(765,15): error C2601: 'CPU::SBC': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(781,15): error C2601: 'CPU::PHA': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(791,15): error C2601: 'CPU::PHP': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(803,15): error C2601: 'CPU::PLA': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(815,15): error C2601: 'CPU::PLP': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(823,15): error C2601: 'CPU::ROL': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(837,15): error C2601: 'CPU::ROR': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(851,16): error C2601: 'CPU::RTI': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(866,16): error C2601: 'CPU::RTS': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(880,16): error C2601: 'CPU::SEC': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(889,16): error C2601: 'CPU::SED': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(898,16): error C2601: 'CPU::SEI': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(907,16): error C2601: 'CPU::STA': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(916,16): error C2601: 'CPU::STX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(925,16): error C2601: 'CPU::STY': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(935,16): error C2601: 'CPU::TAX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(947,16): error C2601: 'CPU::TAY': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(959,16): error C2601: 'CPU::TSX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(971,16): error C2601: 'CPU::TXA': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(982,16): error C2601: 'CPU::TXS': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(992,16): error C2601: 'CPU::TYA': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(1002,16): error C2601: 'CPU::XXX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(1014,13): error C2601: 'CPU::complete': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(1023,40): error C2601: 'CPU::disassemble': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): fatal  error C1075: '{': no matching token found
   Generating Code...

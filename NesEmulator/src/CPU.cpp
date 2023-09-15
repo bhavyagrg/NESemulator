@@ -318,7 +318,7 @@ uint8_t CPU::IND() // Indirect Addressing
 		uint16_t t = read(pc);
 		pc++;
 
-		uint16_t low = read((t & 0x00FF);
+		uint16_t low = read(t & 0x00FF);
 		uint16_t high = read((uint_t)(t + 1) & 0x00FF);
 
 		addr_memory = (high << 8) | low;
