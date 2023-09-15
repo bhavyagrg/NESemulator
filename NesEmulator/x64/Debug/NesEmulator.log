@@ -1,2 +1,12 @@
-﻿  main.cpp
-  NesEmulator.vcxproj -> D:\Programming\Projects2023\NesEmulator\x64\Debug\NesEmulator.exe
+﻿  Bus.cpp
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\Bus.cpp(23,54): error C2572: 'Bus::read': redefinition of default argument: parameter 1
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\Bus.h(20,10): message : see declaration of 'Bus::read'
+  CPU.cpp
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(172,3): error C2065: 'clock_count': undeclared identifier
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(303,15): error C2601: 'CPU::IZX': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(316,15): error C2601: 'CPU::IZY': local function definitions are illegal
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(279,1): message : this line contains a '{' which has not yet been matched
+D:\Programming\Projects2023\NesEmulator\NesEmulator\src\CPU.cpp(321,22): fatal  error C1075: '{': no matching token found
+  PixelGameEngine.cpp
+  Generating Code...

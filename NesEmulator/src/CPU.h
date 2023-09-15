@@ -106,5 +106,5 @@ private:
 	};
 
 	std::vector<INSTRUCTION> lookup;
-};
+
 
