@@ -12,16 +12,16 @@ public:
 	CPU();
 	~CPU();
 
-	uint8_t ac = 0x00; // Accumulator Register;
-	uint8_t x = 0x00; // X Register
-	uint8_t y = 0x00; // Y Register
-	uint8_t stkp = 0x00; // Stack Pointer (points to location o bus)
-	uint16_t pc = 0x00; // Program Counter
-	uint8_t status = 0x00; //Status Register
+	uint8_t ac = 0x00; //------ Accumulator Register;
+	uint8_t x = 0x00; //------- X Register
+	uint8_t y = 0x00; //------- Y Register
+	uint8_t stkp = 0x00; //---- Stack Pointer (points to location o bus)
+	uint16_t pc = 0x00; //----- Program Counter
+	uint8_t status = 0x00; //-- Status Register
 
 	// bus is passed as a pointer to the actual bus , and it's address is given to the cpu
 
-	// Addressing Modes
+	// --->> Addressing Modes
 	uint8_t IMP(); uint8_t IMM();
 	uint8_t ZPO(); uint8_t ZPX();
 	uint8_t ZPY(); uint8_t REL();
@@ -30,7 +30,7 @@ public:
 	uint8_t IZX(); uint8_t IZY();
 
 
-	//Opcodes
+	// --->> Opcodes :  An opcode is a named instruction. Instructions are of 8 bit in 6502 processor
 	uint8_t ADC(); uint8_t AND(); uint8_t ASL(); uint8_t BCC();
 	uint8_t BCS(); uint8_t BEQ(); uint8_t BIT(); uint8_t BMI();
 	uint8_t BNE(); uint8_t BPL(); uint8_t BRK(); uint8_t BVC();
@@ -48,6 +48,8 @@ public:
 
 	uint8_t XXX();
 	
+	// -->>> Functions performed by the CPU
+
 	void clock();
 	void reset();
 	void interruptRequestSig();
@@ -59,12 +61,12 @@ public:
 
 	std::map<uint16_t, std::string> disassemble(uint16_t nStart, uint16_t nStop);
 
-	// Internal Helper functions
+	// -->> Internal Helper functions
 	uint8_t fetch();
-	uint8_t fetched = 0x00; // fetched data will be stored here
+	uint8_t fetched = 0x00; //------ fetched data will be stored here
 
 	// memory locations from where we wanna read depend on the addressing modes
-	uint16_t addr_memory = 0x0000;
+	uint16_t addr_memory = 0x0000; 
 	uint16_t addr_rel = 0x00; // relative address
 	uint8_t opcode = 0x00;
 	uint8_t cycles_left = 0;
@@ -86,7 +88,7 @@ private:
 	uint8_t read(uint16_t addr);
 	void write(uint16_t addr, uint8_t data);
 
-	// Convenience functions to access status register
+	//--->>> Convenience functions to access status register
 	uint8_t GetFlag(FLAGS flgs);
 	void SetFlag(FLAGS flgs, bool value);
 

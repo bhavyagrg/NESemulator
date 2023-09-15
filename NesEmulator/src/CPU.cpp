@@ -33,8 +33,7 @@ CPU::~CPU()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Bus Connectivity
+//-->>>> Bus Connectivity
 
 uint8_t CPU::read(uint16_t addr)
 {
@@ -46,8 +45,8 @@ void CPU::write(uint16_t addr, uint8_t data)
 	bus->write(addr, data);
 }
 
-// External Inputs
-
+// ------------------ Reset functions resets all the values of registers and memory to their default values------------------------------------------
+// ------------------ It let us get a state where we can say we are ready to execute--------------------------
 void CPU::reset()
 {
 	// Get address to set program counter to
@@ -71,7 +70,7 @@ void CPU::reset()
 	fetched = 0x00;
 
 	// Reset takes time
-	cycles_left = 8;
+	cycles_left = 8; // -- Default value
 }
 
 void CPU::interruptRequestSig()
@@ -175,8 +174,8 @@ void CPU::clock()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Flag Functions
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// --->>  Flag Functions
 
 uint8_t CPU::GetFlag(FLAGS flgs)
 {
@@ -192,19 +191,19 @@ void CPU::SetFlag(FLAGS flgs, bool value)
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Defining Addressing Modes
 
-uint8_t CPU::IMP() //implied mode
+uint8_t CPU::IMP() // --> implied mode
 {
 	fetched = ac;
 	return 0;
 }
 
-uint8_t CPU::IMM() //immedite mode
+uint8_t CPU::IMM() //---> immedite mode
 {
 	addr_memory = pc++;
 	return 0;
 }
 
-uint8_t CPU::ZPO() //Zero Page Addressing
+uint8_t CPU::ZPO() // -----> Zero Page Addressing
 {
 	addr_memory = read(pc);
 	pc++;
