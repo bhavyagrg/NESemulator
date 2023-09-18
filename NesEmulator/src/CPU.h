@@ -92,21 +92,26 @@ private:
 	uint8_t GetFlag(FLAGS flgs);
 	void SetFlag(FLAGS flgs, bool value);
 
+	int clock_count = 0;
+
+
+	// 16 * 16 table of opcodes
+	struct INSTRUCTION
+	{
+		std::string name;
+		uint8_t(CPU::* operate)(void) = nullptr; // function pointer of type void
+		uint8_t(CPU::* addrmode)(void) = nullptr;
+		uint8_t cycles = 0;
+	};
+
+	std::vector<INSTRUCTION> lookup;
+
 #ifdef LOGMODE
 private:
 	FILE* logfile = nullptr;
 #endif
 };
 
-	// 16 * 16 table of opcodes
-	struct INSTRUCTION 
-	{
-		std::string name;
-		uint8_t(CPU::*operate)(void) = nullptr; // function pointer of type void
-		uint8_t(CPU::*addrmode)(void) = nullptr;
-		uint8_t cycles = 0;
-	};
 
-	std::vector<INSTRUCTION> lookup;
 
 

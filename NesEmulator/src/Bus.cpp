@@ -20,7 +20,7 @@ void Bus::write(uint16_t address, uint8_t data)
 		ram[address] = data;
 }
 
-uint8_t Bus::read(uint16_t address, bool bReadOnly = false)
+uint8_t Bus::read(uint16_t address, bool bReadOnly)
 {
 	if (address >= 0x0000 && address <= 0xFFFF)
 		return ram[address];

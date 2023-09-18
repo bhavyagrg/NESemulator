@@ -85,7 +85,7 @@
 class Demo_olc6502 : public olc::PixelGameEngine
 {
 public:
-	Demo_olc6502() { sAppName = "olc6502 Demonstration"; }
+	Demo_olc6502() { sAppName = "NES Emulator"; }
 
 	Bus nes;
 	std::map<uint16_t, std::string> mapAsm;

@@ -274,6 +274,7 @@ uint8_t CPU::ABY() // Absolute Addresing with Y register offset
 }
 
 
+
 uint8_t CPU::IND() // Indirect Addressing
 {
 	// 16 bit address that stores the info
@@ -282,30 +283,30 @@ uint8_t CPU::IND() // Indirect Addressing
 	uint16_t ptr_high = read(pc);
 	pc++;
 
-	uint16_t ptr = (ptr_high << 8) | ptr_low; 
+	uint16_t ptr = (ptr_high << 8) | ptr_low;
 
 	// reading the 16 bit data at the original address -> it is the new address
-	
+
 	if (ptr_low == 0x00FF) // Simulate page boundary hardware bug 
 	{
 		addr_memory = (read(ptr & 0xFF00) << 8) | read(ptr + 0);
 	}
 	else // Behave normally
 	{
-	//if low is 255 then high would be 256 , hence we need above if statement, page will be shifted : page boundary hardware bug 
-	addr_memory = (read(ptr + 1) << 8) | read(ptr + 0);
+		//if low is 255 then high would be 256 , hence we need above if statement, page will be shifted : page boundary hardware bug 
+		addr_memory = (read(ptr + 1) << 8) | read(ptr + 0);
 	}
 
 	return 0;
-
+}
 
 	uint8_t CPU::IZX() // Indirect Addressing of zero page with x offset
 	{
 		uint16_t t = read(pc);
 		pc++;
 
-		uint16_t low = read((uint_t)(t + (uint16_t)x) & 0x00FF);
-		uint16_t high = read((uint_t)(t + (uint16_t)x + 1) & 0x00FF);
+		uint16_t low = read((uint8_t)(t + (uint16_t)x) & 0x00FF);
+		uint16_t high = read((uint8_t)(t + (uint16_t)x + 1) & 0x00FF);
 
 		addr_memory = (high << 8) | low;
 
@@ -318,7 +319,7 @@ uint8_t CPU::IND() // Indirect Addressing
 		pc++;
 
 		uint16_t low = read(t & 0x00FF);
-		uint16_t high = read((uint_t)(t + 1) & 0x00FF);
+		uint16_t high = read((uint8_t)(t + 1) & 0x00FF);
 
 		addr_memory = (high << 8) | low;
 		addr_memory += y;
