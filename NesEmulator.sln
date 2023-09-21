@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NesEmulator", "NesEmulator\NesEmulator.vcxproj", "{1EA79101-0E0B-4C99-87D9-126ECA575B06}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{1EA79101-0E0B-4C99-87D9-126ECA575B06}.Release|x64.Build.0 = Release|x64
 		{1EA79101-0E0B-4C99-87D9-126ECA575B06}.Release|x86.ActiveCfg = Release|Win32
 		{1EA79101-0E0B-4C99-87D9-126ECA575B06}.Release|x86.Build.0 = Release|Win32
+		{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}.Debug|x64.ActiveCfg = Debug|x64
+		{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}.Debug|x64.Build.0 = Debug|x64
+		{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}.Debug|x86.ActiveCfg = Debug|Win32
+		{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}.Debug|x86.Build.0 = Debug|Win32
+		{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}.Release|x64.ActiveCfg = Release|x64
+		{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}.Release|x64.Build.0 = Release|x64
+		{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}.Release|x86.ActiveCfg = Release|Win32
+		{6716FF3D-768F-4CEA-A5E7-F1203DDC9692}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
