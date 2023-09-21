@@ -1,2 +1,23 @@
 ﻿  Application.cpp
-  NesEmulator.vcxproj -> D:\Programming\Projects2023\NesEmulator\x64\Debug\NesEmulator.exe
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): error C2065: 'Cartridge': undeclared identifier
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,7): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): message : see declaration of 'Cartridge'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,29): error C2955: 'std::shared_ptr': use of class template requires template argument list
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): error C2065: 'Cartridge': undeclared identifier
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,35): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): message : see declaration of 'Cartridge'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,58): error C2955: 'std::shared_ptr': use of class template requires template argument list
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
+  main.cpp
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): error C2065: 'Cartridge': undeclared identifier
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,7): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): message : see declaration of 'Cartridge'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,29): error C2955: 'std::shared_ptr': use of class template requires template argument list
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): error C2065: 'Cartridge': undeclared identifier
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,35): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): message : see declaration of 'Cartridge'
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,58): error C2955: 'std::shared_ptr': use of class template requires template argument list
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
+  Generating Code...

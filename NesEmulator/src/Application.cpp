@@ -19,7 +19,7 @@ void Application::DrawRam(int x, int y, uint16_t nAddr, int nRows, int nColumns)
 		std::string sOffset = "$" + hex(nAddr, 4) + ":";
 		for (int col = 0; col < nColumns; col++)
 		{
-			sOffset += " " + hex(nes.read(nAddr, true), 2);
+			sOffset += " " + hex(nes.cpuRead(nAddr, true), 2);
 			nAddr += 1;
 		}
 		DrawString(nRamX, nRamY, sOffset);
@@ -108,12 +108,12 @@ bool Application::OnUserCreate()
 	{
 		std::string b;
 		ss >> b;
-		nes.ram[nOffset++] = (uint8_t)std::stoul(b, nullptr, 16);
+		nes.cpuRam[nOffset++] = (uint8_t)std::stoul(b, nullptr, 16);
 	}
 
 	// Set Reset Vector
-	nes.ram[0xFFFC] = 0x00;
-	nes.ram[0xFFFD] = 0x80;
+	nes.cpuRam[0xFFFC] = 0x00;
+	nes.cpuRam[0xFFFD] = 0x80;
 
 	// Dont forget to set IRQ and NMI vectors if you want to play with those
 

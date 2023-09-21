@@ -85,8 +85,8 @@ public:
 
 private:
 	Bus *bus = nullptr;
-	uint8_t read(uint16_t addr);
-	void write(uint16_t addr, uint8_t data);
+	uint8_t cpuRead(uint16_t addr);
+	void cpuWrite(uint16_t addr, uint8_t data);
 
 	//--->>> Convenience functions to access status register
 	uint8_t GetFlag(FLAGS flgs);
