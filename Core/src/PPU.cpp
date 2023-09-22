@@ -57,6 +57,11 @@ uint8_t PPU::ppuRead(uint16_t address, bool rdonly)
     uint8_t data = 0x00;
     address &= 0x3FFF;
 
+    if (cart->ppuRead(address, data))
+    {
+
+    }
+
     return data;
 }
 
@@ -64,6 +69,11 @@ void PPU::ppuWrite(uint16_t address, uint8_t data)
 {
     // Placeholders
     address &= 0x3FFF;
+
+    if (cart->ppuWrite(address, data))
+    {
+
+    }
 }
 
 void PPU::ConnectCartrdige(const std::shared_ptr<Cartridge>& cartridge)
