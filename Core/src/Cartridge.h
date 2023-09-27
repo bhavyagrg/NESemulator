@@ -4,11 +4,15 @@
 #include <fstream>
 #include<string>
 
+#include "Mapper_000.h"
+
 class Cartridge
 {
 public:
 	Cartridge(const std::string& sFileName);
 	~Cartridge();
+
+	bool ImageValid();
 
 private:
 	std::vector<uint8_t> vPRGMemory;
@@ -18,15 +22,17 @@ private:
 	uint8_t nPRGBanks = 0;
 	uint8_t nCHRBanks = 0;
 
+	std::shared_ptr<Mapper> pMapper; // ----- pointer to the mapper class
 
+public:
 	// --------------Connects PPU to CPU Bus------------------
 	// -->> Communications  with Main Bus
-	uint8_t cpuRead(uint16_t address, bool rdonly = false);
-	void cpuWrite(uint16_t address, uint8_t data);
+	bool cpuRead(uint16_t address, uint8_t& data);
+	bool cpuWrite(uint16_t address, uint8_t data);
 
 	// --------------Connects PPU to it's own Bus------------------
 	// -->> Communications  with PPU Bus
-	uint8_t ppuRead(uint16_t address, bool rdonly = false);
-	void ppuWrite(uint16_t address, uint8_t data);
+	bool ppuRead(uint16_t address, uint8_t& data);
+	bool ppuWrite(uint16_t address, uint8_t data);
 };
 

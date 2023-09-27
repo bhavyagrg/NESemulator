@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\external;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,12 +129,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Mapper_000.cpp" />
+    <ClCompile Include="src\Mapper.cpp" />
     <ClCompile Include="src\Cartridge.cpp" />
     <ClCompile Include="src\PPU.cpp" />
     <ClCompile Include="src\Bus.cpp" />
     <ClCompile Include="src\CPU.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Mapper_000.h" />
+    <ClInclude Include="src\Mapper.h" />
     <ClInclude Include="src\Cartridge.h" />
     <ClInclude Include="src\PPU.h" />
     <ClInclude Include="src\Bus.h" />

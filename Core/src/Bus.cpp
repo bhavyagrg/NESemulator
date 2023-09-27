@@ -16,7 +16,13 @@ Bus::~Bus()
 
 void Bus::cpuWrite(uint16_t address, uint8_t data)
 {
-	if (address >= 0x0000 && address <= 0x1FFF)
+	// --- priority given to cartridge for read and write operations over cpu or ppu--------
+	if (cart->cpuWrite(address, data))
+	{
+
+	}
+
+	else if (address >= 0x0000 && address <= 0x1FFF)
 		cpuRam[address & 0x07FF] = data;
 
 	// PPU 
@@ -32,7 +38,12 @@ uint8_t Bus::cpuRead(uint16_t address, bool bReadOnly)
 {
 	uint8_t data = 0x00;
 
-	if (address >= 0x0000 && address <= 0x1FFF)
+	if (cart->cpuRead(address, data))
+	{
+		// Cartridge Address Range
+	}
+
+	else if (address >= 0x0000 && address <= 0x1FFF)
 		data = cpuRam[address & 0x07FF];
 
 	// PPU 
@@ -59,4 +70,11 @@ void Bus::reset()
 
 void Bus::clock()
 {
+	ppu.clock();
+	// cpu clock runs three times slower than the ppu clock
+	if (nSystemClockCounter % 3 == 0)
+	{
+		cpu.clock();
+	}
+	nSystemClockCounter++;
 }

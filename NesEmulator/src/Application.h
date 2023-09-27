@@ -20,8 +20,11 @@ public:
 
 
 public:
+	std::shared_ptr<Cartridge> cart;
 	Bus nes;
 	std::map<uint16_t, std::string> mapAsm;
+	bool bEmulationRun = false;
+	float fResidualTime = 0.0f;
 
 private:
 	std::string hex(uint32_t n, uint8_t d);

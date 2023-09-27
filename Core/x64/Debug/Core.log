@@ -1,49 +1,11 @@
-﻿  Bus.cpp
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): error C2065: 'Cartridge': undeclared identifier
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,7): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): message : see declaration of 'Cartridge'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,29): error C2955: 'std::shared_ptr': use of class template requires template argument list
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): error C2065: 'Cartridge': undeclared identifier
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,35): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): message : see declaration of 'Cartridge'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,58): error C2955: 'std::shared_ptr': use of class template requires template argument list
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
-D:\Programming\Projects2023\NesEmulator\Core\src\Bus.cpp(26,7): error C2248: 'PPU::cpuWrite': cannot access private member declared in class 'PPU'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(20,7): message : see declaration of 'PPU::cpuWrite'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(4,7): message : see declaration of 'PPU'
-D:\Programming\Projects2023\NesEmulator\Core\src\Bus.cpp(42,14): error C2248: 'PPU::cpuRead': cannot access private member declared in class 'PPU'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(19,10): message : see declaration of 'PPU::cpuRead'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(4,7): message : see declaration of 'PPU'
-D:\Programming\Projects2023\NesEmulator\Core\src\Bus.cpp(51,5): error C2664: 'void PPU::ConnectCartrdige(const std::shared_ptr &)': cannot convert argument 1 from 'const std::shared_ptr<Cartridge>' to 'const std::shared_ptr &'
-D:\Programming\Projects2023\NesEmulator\Core\src\Bus.cpp(51,23): message : Reason: cannot convert from 'const std::shared_ptr<Cartridge>' to 'const std::shared_ptr'
-D:\Programming\Projects2023\NesEmulator\Core\src\Bus.cpp(51,23): message : No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,7): message : see declaration of 'PPU::ConnectCartrdige'
-D:\Programming\Projects2023\NesEmulator\Core\src\Bus.cpp(51,5): message : while trying to match the argument list '(const std::shared_ptr<Cartridge>)'
-  CPU.cpp
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): error C2065: 'Cartridge': undeclared identifier
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,7): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): message : see declaration of 'Cartridge'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,29): error C2955: 'std::shared_ptr': use of class template requires template argument list
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): error C2065: 'Cartridge': undeclared identifier
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,35): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): message : see declaration of 'Cartridge'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,58): error C2955: 'std::shared_ptr': use of class template requires template argument list
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
+﻿  Mapper_000.cpp
+  Mapper.cpp
   Cartridge.cpp
+D:\Programming\Projects2023\NesEmulator\Core\src\Cartridge.cpp(74,9): error C2065: 'bImageValid': undeclared identifier
   PPU.cpp
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): error C2065: 'Cartridge': undeclared identifier
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,7): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,18): message : see declaration of 'Cartridge'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(30,29): error C2955: 'std::shared_ptr': use of class template requires template argument list
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): error C2065: 'Cartridge': undeclared identifier
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,35): error C2923: 'std::shared_ptr': 'Cartridge' is not a valid template type argument for parameter '_Ty'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,46): message : see declaration of 'Cartridge'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(34,58): error C2955: 'std::shared_ptr': use of class template requires template argument list
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.37.32822\include\memory(1562,1): message : see declaration of 'std::shared_ptr'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.cpp(69,11): error C2511: 'void PPU::ConnectCartrdige(const std::shared_ptr<Cartridge> &)': overloaded member function not found in 'PPU'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(4,7): message : see declaration of 'PPU'
-D:\Programming\Projects2023\NesEmulator\Core\src\PPU.cpp(71,5): error C2671: 'PPU::ConnectCartrdige': static member functions do not have 'this' pointers
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(5,10): fatal  error C1083: Cannot open include file: 'external\PixelGameEngine.h': No such file or directory
+  Bus.cpp
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(5,10): fatal  error C1083: Cannot open include file: 'external\PixelGameEngine.h': No such file or directory
+  CPU.cpp
+D:\Programming\Projects2023\NesEmulator\Core\src\PPU.h(5,10): fatal  error C1083: Cannot open include file: 'external\PixelGameEngine.h': No such file or directory
   Generating Code...
