@@ -87,17 +87,17 @@ PPU::~PPU()
     delete sprPatternTable[1];
 }
 
-olc::Sprite& olc2C02::GetScreen()
+olc::Sprite& PPU::GetScreen()
 {
     return *sprScreen;
 }
 
-olc::Sprite& olc2C02::GetNameTable(uint8_t i)
+olc::Sprite& PPU::GetNameTable(uint8_t i)
 {
     return *sprNameTable[i];
 }
 
-olc::Sprite& olc2C02::GetPatternTable(uint8_t i)
+olc::Sprite& PPU::GetPatternTable(uint8_t i)
 {
     return *sprPatternTable[i];
 }

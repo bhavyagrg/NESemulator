@@ -3,6 +3,10 @@
 #include<vector>
 #include <map>
 
+#ifdef LOGMODE
+#include <stdio.h>
+#endif
+
 class Bus;
 
 class CPU
@@ -28,6 +32,8 @@ public:
 	uint8_t ABS(); uint8_t ABX();
 	uint8_t ABY(); uint8_t IND();
 	uint8_t IZX(); uint8_t IZY();
+
+	
 
 
 	// --->> Opcodes :  An opcode is a named instruction. Instructions are of 8 bit in 6502 processor
