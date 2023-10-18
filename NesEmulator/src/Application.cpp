@@ -19,7 +19,7 @@ void Application::DrawRam(int x, int y, uint16_t nAddr, int nRows, int nColumns)
 		std::string sOffset = "$" + hex(nAddr, 4) + ":";
 		for (int col = 0; col < nColumns; col++)
 		{
-			sOffset += " " + hex(nes.cpuRead(nAddr, true), 2);
+			sOffset += " " + hex(bus.cpuRead(nAddr, true), 2);
 			nAddr += 1;
 		}
 		DrawString(nRamX, nRamY, sOffset);
@@ -31,24 +31,24 @@ void Application::DrawCpu(int x, int y)
 {
 	std::string status = "STATUS: ";
 	DrawString(x, y, "STATUS:", olc::WHITE);
-	DrawString(x + 64, y, "N", nes.cpu.status & CPU::N ? olc::GREEN : olc::RED);
-	DrawString(x + 80, y, "V", nes.cpu.status & CPU::V ? olc::GREEN : olc::RED);
-	DrawString(x + 96, y, "-", nes.cpu.status & CPU::U ? olc::GREEN : olc::RED);
-	DrawString(x + 112, y, "B", nes.cpu.status & CPU::B ? olc::GREEN : olc::RED);
-	DrawString(x + 128, y, "D", nes.cpu.status & CPU::D ? olc::GREEN : olc::RED);
-	DrawString(x + 144, y, "I", nes.cpu.status & CPU::I ? olc::GREEN : olc::RED);
-	DrawString(x + 160, y, "Z", nes.cpu.status & CPU::Z ? olc::GREEN : olc::RED);
-	DrawString(x + 178, y, "C", nes.cpu.status & CPU::C ? olc::GREEN : olc::RED);
-	DrawString(x, y + 10, "PC: $" + hex(nes.cpu.pc, 4));
-	DrawString(x, y + 20, "A: $" + hex(nes.cpu.ac, 2) + "  [" + std::to_string(nes.cpu.ac) + "]");
-	DrawString(x, y + 30, "X: $" + hex(nes.cpu.x, 2) + "  [" + std::to_string(nes.cpu.x) + "]");
-	DrawString(x, y + 40, "Y: $" + hex(nes.cpu.y, 2) + "  [" + std::to_string(nes.cpu.y) + "]");
-	DrawString(x, y + 50, "Stack P: $" + hex(nes.cpu.stkp, 4));
+	DrawString(x + 64, y, "N", bus.cpu.status & CPU::N ? olc::GREEN : olc::RED);
+	DrawString(x + 80, y, "V", bus.cpu.status & CPU::V ? olc::GREEN : olc::RED);
+	DrawString(x + 96, y, "-", bus.cpu.status & CPU::U ? olc::GREEN : olc::RED);
+	DrawString(x + 112, y, "B", bus.cpu.status & CPU::B ? olc::GREEN : olc::RED);
+	DrawString(x + 128, y, "D", bus.cpu.status & CPU::D ? olc::GREEN : olc::RED);
+	DrawString(x + 144, y, "I", bus.cpu.status & CPU::I ? olc::GREEN : olc::RED);
+	DrawString(x + 160, y, "Z", bus.cpu.status & CPU::Z ? olc::GREEN : olc::RED);
+	DrawString(x + 178, y, "C", bus.cpu.status & CPU::C ? olc::GREEN : olc::RED);
+	DrawString(x, y + 10, "PC: $" + hex(bus.cpu.pc, 4));
+	DrawString(x, y + 20, "A: $" + hex(bus.cpu.ac, 2) + "  [" + std::to_string(bus.cpu.ac) + "]");
+	DrawString(x, y + 30, "X: $" + hex(bus.cpu.x, 2) + "  [" + std::to_string(bus.cpu.x) + "]");
+	DrawString(x, y + 40, "Y: $" + hex(bus.cpu.y, 2) + "  [" + std::to_string(bus.cpu.y) + "]");
+	DrawString(x, y + 50, "Stack P: $" + hex(bus.cpu.stkp, 4));
 }
 
 void Application::DrawCode(int x, int y, int nLines)
 {
-	auto it_a = mapAsm.find(nes.cpu.pc);
+	auto it_a = mapAsm.find(bus.cpu.pc);
 	int nLineY = (nLines >> 1) * 10 + y;
 	if (it_a != mapAsm.end())
 	{
@@ -63,7 +63,7 @@ void Application::DrawCode(int x, int y, int nLines)
 		}
 	}
 
-	it_a = mapAsm.find(nes.cpu.pc);
+	it_a = mapAsm.find(bus.cpu.pc);
 	nLineY = (nLines >> 1) * 10 + y;
 	if (it_a != mapAsm.end())
 	{
@@ -78,23 +78,25 @@ void Application::DrawCode(int x, int y, int nLines)
 	}
 }
 
+// OnUserCreate is called when a window is created
 bool Application::OnUserCreate()
 {
 	// Load the cartridge
 	cart = std::make_shared<Cartridge>("./nesfiles/super_mario_bros.nes");
 
 	// Insert into NES
-	nes.insertCartridge(cart);
+	bus.insertCartridge(cart);
 
 	// Extract dissassembly
-	mapAsm = nes.cpu.disassemble(0x0000, 0xFFFF);
+	mapAsm = bus.cpu.disassemble(0x0000, 0xFFFF);
 
 	// Reset NES
-	nes.reset();
+	bus.reset();
 
 	return true;
 }
 
+// Any update to the window like resize, etc
 bool Application::OnUserUpdate(float fElapsedTime)
 {
 	Clear(olc::BLACK);
@@ -105,8 +107,8 @@ bool Application::OnUserUpdate(float fElapsedTime)
 		else
 		{
 			fResidualTime += (1.0f / 60.0f) - fElapsedTime;
-			do { nes.clock(); } while (!nes.ppu.frame_complete);
-			nes.ppu.frame_complete = false;
+			do { bus.clock(); } while (!bus.ppu.frame_complete);
+			bus.ppu.frame_complete = false;
 		}
 	}
 	else
@@ -115,33 +117,50 @@ bool Application::OnUserUpdate(float fElapsedTime)
 		if (GetKey(olc::Key::C).bPressed)
 		{
 			// Clock enough times to execute a whole CPU instruction
-			do { nes.clock(); } while (!nes.cpu.complete());
+			do { bus.clock(); } while (!bus.cpu.complete());
 			// CPU clock runs slower than system clock, so it may be
 			// complete for additional system clock cycles. Drain
 			// those out
-			do { nes.clock(); } while (nes.cpu.complete());
+			do { bus.clock(); } while (bus.cpu.complete());
 		}
 
 		// Emulate one whole frame
 		if (GetKey(olc::Key::F).bPressed)
 		{
 			// Clock enough times to draw a single frame
-			do { nes.clock(); } while (!nes.ppu.frame_complete);
+			do { bus.clock(); } while (!bus.ppu.frame_complete);
 			// Use residual clock cycles to complete current instruction
-			do { nes.clock(); } while (!nes.cpu.complete());
+			do { bus.clock(); } while (!bus.cpu.complete());
 			// Reset frame completion flag
-			nes.ppu.frame_complete = false;
+			bus.ppu.frame_complete = false;
 		}
 	}
 
 
 	if (GetKey(olc::Key::SPACE).bPressed) bEmulationRun = !bEmulationRun;
-	if (GetKey(olc::Key::R).bPressed) nes.reset();
+	if (GetKey(olc::Key::R).bPressed) bus.reset();
+
+	if (GetKey(olc::Key::P).bPressed) (++nSelectedPalette) &= 0x07;
 
 	DrawCpu(516, 2);
 	DrawCode(516, 72, 26);
 
-	DrawSprite(0, 0, &nes.ppu.GetScreen(), 2);
+	// Draw Palettes & Pattern Tables ==============================================
+	const int nSwatchSize = 6;
+	for (int p = 0; p < 8; p++) // For each palette
+		for (int s = 0; s < 4; s++) // For each index
+			FillRect(516 + p * (nSwatchSize * 5) + s * nSwatchSize, 340,
+				nSwatchSize, nSwatchSize, bus.ppu.GetColourFromPaletteRam(p, s));
+
+	// Draw selection reticule around selected palette
+	DrawRect(516 + nSelectedPalette * (nSwatchSize * 5) - 1, 339, (nSwatchSize * 4), nSwatchSize, olc::WHITE);
+
+
+	DrawSprite(516, 348, &bus.ppu.GetPatternTable(0, nSelectedPalette));
+	DrawSprite(648, 348, &bus.ppu.GetPatternTable(1, nSelectedPalette));
+
+
+	DrawSprite(0, 0, &bus.ppu.GetScreen(), 2);
 
 	return true;
 }

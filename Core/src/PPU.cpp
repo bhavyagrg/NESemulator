@@ -74,6 +74,7 @@ PPU::PPU()
     sprScreen = new olc::Sprite(256, 240);
     sprNameTable[0] = new olc::Sprite(256, 240);
     sprNameTable[1] = new olc::Sprite(256, 240);
+    // ------Two sprites to visualise the pattern memory-----
     sprPatternTable[0] = new olc::Sprite(128, 128);
     sprPatternTable[1] = new olc::Sprite(128, 128);
 }
@@ -97,9 +98,53 @@ olc::Sprite& PPU::GetNameTable(uint8_t i)
     return *sprNameTable[i];
 }
 
-olc::Sprite& PPU::GetPatternTable(uint8_t i)
+olc::Sprite& PPU::GetPatternTable(uint8_t i,uint8_t palette)
 {
+    // ----- For a given pattern table there are 16 by 16 tiles
+    for (uint16_t nTileY = 0; nTileY < 16; nTileY++)
+    {
+        for (uint16_t nTileX = 0; nTileX < 16; nTileX++)
+        {
+            // converting 2D coordinate into 1D coordinate
+            // 256 because a single tile consists of 16 bytes of information
+            uint16_t nOffset = nTileY * 256 + nTileX * 16;
+
+            // for each tile we have 8 rows of 8 pixels
+            for (uint16_t row = 0; row < 8; row++)
+            {
+                // To read from the pattern memory we need ppu read function
+                uint8_t tile_lsb = ppuRead(i * 0x1000 + nOffset + row + 0);
+                uint8_t tile_msb = ppuRead(i * 0x1000 + nOffset + row + 8);
+
+
+                for (uint16_t col = 0; col < 8; col++)
+                {
+                    // adding least significant bit to get the colour of a pixel, It will be give us a value between 0 and 3
+                    uint8_t pixel = (tile_lsb & 0x01) + (tile_msb & 0x01);
+                    tile_lsb >>= 1; tile_msb >>= 1; // Shift by 1
+
+                    // Now drawing that pixel value
+                    sprPatternTable[i]->SetPixel
+                    (
+                        // We are drawing from the top left first , so we need to invert 
+                        // This refers to the right most pixel, so inversion or 7 - col is necessary
+                        nTileX * 8 + (7 - col),
+                        nTileY * 8 + row,
+                        // Finally choose the colour, 
+                        GetColourFromPaletteRam(palette,pixel)
+                    );
+
+                }
+            }
+        }
+    }
+
     return *sprPatternTable[i];
+}
+
+olc::Pixel& PPU::GetColourFromPaletteRam(uint8_t palette, uint8_t pixel)
+{
+    return palScreen[ppuRead(0x3F00 + (palette << 2) + pixel) & 0x3F];
 }
 
 uint8_t PPU::cpuRead(uint16_t address, bool rdonly)
@@ -162,6 +207,24 @@ uint8_t PPU::ppuRead(uint16_t address, bool rdonly)
     {
 
     }
+    else if (address >= 0x0000 && address <= 0x1FFF)
+    {
+        data = pattern_mem[(address & 0x1000) >> 12][address & 0x0FFF];
+    }
+    else if (address >= 0x2000 && address <= 0x3EFF)
+    {
+
+    }
+    // Palette memory
+    else if (address >= 0x3F00 && address <= 0x3FFF)
+    {
+        address &= 0x001F;
+        if (address == 0x0010) address = 0x0000;
+        if (address == 0x0014) address = 0x0004;
+        if (address == 0x0018) address = 0x0008;
+        if (address == 0x001C) address = 0x000C;
+        data = palette_mem[address];
+    }
 
     return data;
 }
@@ -174,6 +237,24 @@ void PPU::ppuWrite(uint16_t address, uint8_t data)
     if (cart->ppuWrite(address, data))
     {
 
+    }
+    else if (address >= 0x0000 && address <= 0x1FFF)
+    {
+        pattern_mem[(address & 0x1000) >> 12][address & 0x0FFF] = data;
+    }
+    else if (address >= 0x2000 && address <= 0x3EFF)
+    {
+
+    }
+    // Palette memory
+    else if (address >= 0x3F00 && address <= 0x3FFF)
+    {
+        address &= 0x001F;
+        if (address == 0x0010) address = 0x0000;
+        if (address == 0x0014) address = 0x0004;
+        if (address == 0x0018) address = 0x0008;
+        if (address == 0x001C) address = 0x000C;
+        palette_mem[address] = data;
     }
 }
 

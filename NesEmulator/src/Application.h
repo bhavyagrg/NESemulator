@@ -21,10 +21,12 @@ public:
 
 public:
 	std::shared_ptr<Cartridge> cart;
-	Bus nes;
+	Bus bus;
 	std::map<uint16_t, std::string> mapAsm;
 	bool bEmulationRun = false;
 	float fResidualTime = 0.0f;
+
+	uint8_t nSelectedPalette = 0x00;
 
 private:
 	std::string hex(uint32_t n, uint8_t d);
