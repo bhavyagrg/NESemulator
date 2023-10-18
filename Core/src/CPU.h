@@ -37,6 +37,7 @@ public:
 
 
 	// --->> Opcodes :  An opcode is a named instruction. Instructions are of 8 bit in 6502 processor
+	// ---->> There are 56 legal opcodes
 	uint8_t ADC(); uint8_t AND(); uint8_t ASL(); uint8_t BCC();
 	uint8_t BCS(); uint8_t BEQ(); uint8_t BIT(); uint8_t BMI();
 	uint8_t BNE(); uint8_t BPL(); uint8_t BRK(); uint8_t BVC();
@@ -52,7 +53,7 @@ public:
 	uint8_t STX(); uint8_t STY(); uint8_t TAX(); uint8_t TAY();
 	uint8_t TSX(); uint8_t TXA(); uint8_t TXS(); uint8_t TYA();
 
-	uint8_t XXX();
+	uint8_t XXX(); // For capturing illegal opcodes
 	
 	// -->>> Functions performed by the CPU
 
@@ -72,9 +73,9 @@ public:
 	uint8_t fetched = 0x00; //------ fetched data will be stored here
 
 	// memory locations from where we wanna read depend on the addressing modes
-	uint16_t addr_memory = 0x0000; 
-	uint16_t addr_rel = 0x00; // relative address
-	uint8_t opcode = 0x00;
+	uint16_t addr_memory = 0x0000; // Location from where we wanna read the data
+	uint16_t addr_rel = 0x00; // relative address, for branch instructions
+	uint8_t opcode = 0x00; // to store the opcode I am currently working with
 	uint8_t cycles_left = 0;
 
 	enum FLAGS
@@ -104,13 +105,13 @@ private:
 	// 16 * 16 table of opcodes
 	struct INSTRUCTION
 	{
-		std::string name;
-		uint8_t(CPU::* operate)(void) = nullptr; // function pointer of type void
-		uint8_t(CPU::* addrmode)(void) = nullptr;
-		uint8_t cycles = 0;
+		std::string name; // This holds the nemonic
+		uint8_t(CPU::* operate)(void) = nullptr; // function pointer of type void, function pointer to the operation to be performed
+		uint8_t(CPU::* addrmode)(void) = nullptr; // function pointer to the address mode
+		uint8_t cycles = 0; // Number of clock cycles instruction requires to get executed
 	};
 
-	std::vector<INSTRUCTION> lookup;
+	std::vector<INSTRUCTION> lookup; // Lookup is vector of INSTRUCTION type which stores all the information of the stuct INSTRUCTION
 
 #ifdef LOGMODE
 private:

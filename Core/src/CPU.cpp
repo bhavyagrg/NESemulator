@@ -34,7 +34,7 @@ CPU::~CPU()
 
 
 //-->>>> Bus Connectivity
-
+// Connecting CPU to the bus
 uint8_t CPU::cpuRead(uint16_t addr)
 {
 	return bus->cpuRead(addr, false);
@@ -128,7 +128,7 @@ void CPU::clock()
 {
 	if (cycles_left == 0)
 	{
-		opcode = cpuRead(pc);
+		opcode = cpuRead(pc); // return 1 byte which can be used to index the table
 
 	#ifdef LOGMODE
 			uint16_t log_pc = pc;
@@ -142,11 +142,11 @@ void CPU::clock()
 		//Get Starting number of cycles
 		cycles_left = lookup[opcode].cycles;
 
-		uint8_t additional_cycle1 = (this->*lookup[opcode].addrmode)();// function call
+		uint8_t additional_cycle1 = (this->*lookup[opcode].addrmode)();// function call to the respective function
 
 		uint8_t additional_cycle2 = (this->*lookup[opcode].operate)();
 
-		cycles_left += (additional_cycle1 & additional_cycle2);
+		cycles_left += (additional_cycle1 & additional_cycle2); // if above two functions says they need additional clock cycle we will add it to cycles left ..
 	
 		SetFlag(U, true);
 
