@@ -262,7 +262,7 @@ uint8_t CPU::ABY() // Absolute Addresing with Y register offset
 	uint16_t low = cpuRead(pc);
 	pc++;
 	uint16_t high = cpuRead(pc);
-	pc++;
+	pc++;  
 
 	addr_memory = (high << 8) | low;
 	addr_memory += y;

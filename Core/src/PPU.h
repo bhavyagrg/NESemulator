@@ -10,11 +10,11 @@ public:
 	PPU();
 	~PPU();
 
-// ------------------Memories--------------
 
+// ------------------Memories--------------
 private:
 	uint8_t vRam[2][1024]; // ---->> Used to hold name table information(2KB)
-	uint8_t palette_mem[32];
+	uint8_t palette_mem[32]; // Ram connected to PPU bus to store palette info
 	uint8_t pattern_mem[2][4096]; // ---> not necessary
 
 public:

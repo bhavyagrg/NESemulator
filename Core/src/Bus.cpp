@@ -58,7 +58,9 @@ uint8_t Bus::cpuRead(uint16_t address, bool bReadOnly)
 
 void Bus::insertCartridge(const std::shared_ptr<Cartridge>& cartridge)
 {
+	// Connect bus to the cartridge
 	this->cart = cartridge;
+	// Connect PPU to the cartridge 
 	ppu.ConnectCartrdige(cartridge);
 }
 
