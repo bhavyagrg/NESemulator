@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)NesEmulator</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)NesEmulator;$(SolutionDir)Gui;$(SolutionDir)Gui\external\raylib\include\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)NesEmulator</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)NesEmulator;$(SolutionDir)Gui;$(SolutionDir)Gui\external\raylib\include\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)NesEmulator</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)NesEmulator;$(SolutionDir)Gui;$(SolutionDir)Gui\external\raylib\include\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,7 +138,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)NesEmulator</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)NesEmulator;$(SolutionDir)Gui;$(SolutionDir)Gui\external\raylib\include\;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,6 +156,7 @@
     <ClCompile Include="src\CPU.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core.h" />
     <ClInclude Include="src\Mapper_000.h" />
     <ClInclude Include="src\Mapper.h" />
     <ClInclude Include="src\Cartridge.h" />

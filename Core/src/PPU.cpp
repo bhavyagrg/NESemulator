@@ -3,79 +3,79 @@
 
 PPU::PPU()
 {
-    palScreen[0x00] = olc::Pixel(84, 84, 84);
-    palScreen[0x01] = olc::Pixel(0, 30, 116);
-    palScreen[0x02] = olc::Pixel(8, 16, 144);
-    palScreen[0x03] = olc::Pixel(48, 0, 136);
-    palScreen[0x04] = olc::Pixel(68, 0, 100);
-    palScreen[0x05] = olc::Pixel(92, 0, 48);
-    palScreen[0x06] = olc::Pixel(84, 4, 0);
-    palScreen[0x07] = olc::Pixel(60, 24, 0);
-    palScreen[0x08] = olc::Pixel(32, 42, 0);
-    palScreen[0x09] = olc::Pixel(8, 58, 0);
-    palScreen[0x0A] = olc::Pixel(0, 64, 0);
-    palScreen[0x0B] = olc::Pixel(0, 60, 0);
-    palScreen[0x0C] = olc::Pixel(0, 50, 60);
-    palScreen[0x0D] = olc::Pixel(0, 0, 0);
-    palScreen[0x0E] = olc::Pixel(0, 0, 0);
-    palScreen[0x0F] = olc::Pixel(0, 0, 0);
+    palScreen[0x00] = CLITERAL(Color) { 84, 84, 84, 255 };
+    palScreen[0x01] = CLITERAL(Color) { 0, 30, 116, 255 };
+    palScreen[0x02] = CLITERAL(Color) { 8, 16, 144, 255 };
+    palScreen[0x03] = CLITERAL(Color) { 48, 0, 136, 255 };
+    palScreen[0x04] = CLITERAL(Color) { 68, 0, 100, 255 };
+    palScreen[0x05] = CLITERAL(Color) { 92, 0, 48, 255 };
+    palScreen[0x06] = CLITERAL(Color) { 84, 4, 0, 255 };
+    palScreen[0x07] = CLITERAL(Color) { 60, 24, 0, 255 };
+    palScreen[0x08] = CLITERAL(Color) { 32, 42, 0, 255 };
+    palScreen[0x09] = CLITERAL(Color) { 8, 58, 0, 255 };
+    palScreen[0x0A] = CLITERAL(Color) { 0, 64, 0, 255 };
+    palScreen[0x0B] = CLITERAL(Color) { 0, 60, 0, 255 };
+    palScreen[0x0C] = CLITERAL(Color) { 0, 50, 60, 255 };
+    palScreen[0x0D] = CLITERAL(Color) { 0, 0, 0, 255 };
+    palScreen[0x0E] = CLITERAL(Color) { 0, 0, 0, 255 };
+    palScreen[0x0F] = CLITERAL(Color) { 0, 0, 0, 255 };
 
-    palScreen[0x10] = olc::Pixel(152, 150, 152);
-    palScreen[0x11] = olc::Pixel(8, 76, 196);
-    palScreen[0x12] = olc::Pixel(48, 50, 236);
-    palScreen[0x13] = olc::Pixel(92, 30, 228);
-    palScreen[0x14] = olc::Pixel(136, 20, 176);
-    palScreen[0x15] = olc::Pixel(160, 20, 100);
-    palScreen[0x16] = olc::Pixel(152, 34, 32);
-    palScreen[0x17] = olc::Pixel(120, 60, 0);
-    palScreen[0x18] = olc::Pixel(84, 90, 0);
-    palScreen[0x19] = olc::Pixel(40, 114, 0);
-    palScreen[0x1A] = olc::Pixel(8, 124, 0);
-    palScreen[0x1B] = olc::Pixel(0, 118, 40);
-    palScreen[0x1C] = olc::Pixel(0, 102, 120);
-    palScreen[0x1D] = olc::Pixel(0, 0, 0);
-    palScreen[0x1E] = olc::Pixel(0, 0, 0);
-    palScreen[0x1F] = olc::Pixel(0, 0, 0);
+    palScreen[0x10] = CLITERAL(Color) { 152, 150, 152, 255 };
+    palScreen[0x11] = CLITERAL(Color) { 8, 76, 196, 255 };
+    palScreen[0x12] = CLITERAL(Color) { 48, 50, 236, 255 };
+    palScreen[0x13] = CLITERAL(Color) { 92, 30, 228, 255 };
+    palScreen[0x14] = CLITERAL(Color) { 136, 20, 176, 255 };
+    palScreen[0x15] = CLITERAL(Color) { 160, 20, 100, 255 };
+    palScreen[0x16] = CLITERAL(Color) { 152, 34, 32, 255 };
+    palScreen[0x17] = CLITERAL(Color) { 120, 60, 0, 255 };
+    palScreen[0x18] = CLITERAL(Color) { 84, 90, 0, 255 };
+    palScreen[0x19] = CLITERAL(Color) { 40, 114, 0, 255 };
+    palScreen[0x1A] = CLITERAL(Color) { 8, 124, 0, 255 };
+    palScreen[0x1B] = CLITERAL(Color) { 0, 118, 40, 255 };
+    palScreen[0x1C] = CLITERAL(Color) { 0, 102, 120, 255 };
+    palScreen[0x1D] = CLITERAL(Color) { 0, 0, 0, 255 };
+    palScreen[0x1E] = CLITERAL(Color) { 0, 0, 0, 255 };
+    palScreen[0x1F] = CLITERAL(Color) { 0, 0, 0, 255 };
 
-    palScreen[0x20] = olc::Pixel(236, 238, 236);
-    palScreen[0x21] = olc::Pixel(76, 154, 236);
-    palScreen[0x22] = olc::Pixel(120, 124, 236);
-    palScreen[0x23] = olc::Pixel(176, 98, 236);
-    palScreen[0x24] = olc::Pixel(228, 84, 236);
-    palScreen[0x25] = olc::Pixel(236, 88, 180);
-    palScreen[0x26] = olc::Pixel(236, 106, 100);
-    palScreen[0x27] = olc::Pixel(212, 136, 32);
-    palScreen[0x28] = olc::Pixel(160, 170, 0);
-    palScreen[0x29] = olc::Pixel(116, 196, 0);
-    palScreen[0x2A] = olc::Pixel(76, 208, 32);
-    palScreen[0x2B] = olc::Pixel(56, 204, 108);
-    palScreen[0x2C] = olc::Pixel(56, 180, 204);
-    palScreen[0x2D] = olc::Pixel(60, 60, 60);
-    palScreen[0x2E] = olc::Pixel(0, 0, 0);
-    palScreen[0x2F] = olc::Pixel(0, 0, 0);
+    palScreen[0x20] = CLITERAL(Color) { 236, 238, 236, 255 };
+    palScreen[0x21] = CLITERAL(Color) { 76, 154, 236, 255 };
+    palScreen[0x22] = CLITERAL(Color) { 120, 124, 236, 255 };
+    palScreen[0x23] = CLITERAL(Color) { 176, 98, 236, 255 };
+    palScreen[0x24] = CLITERAL(Color) { 228, 84, 236, 255 };
+    palScreen[0x25] = CLITERAL(Color) { 236, 88, 180, 255 };
+    palScreen[0x26] = CLITERAL(Color) { 236, 106, 100, 255 };
+    palScreen[0x27] = CLITERAL(Color) { 212, 136, 32, 255 };
+    palScreen[0x28] = CLITERAL(Color) { 160, 170, 0, 255 };
+    palScreen[0x29] = CLITERAL(Color) { 116, 196, 0, 255 };
+    palScreen[0x2A] = CLITERAL(Color) { 76, 208, 32, 255 };
+    palScreen[0x2B] = CLITERAL(Color) { 56, 204, 108, 255 };
+    palScreen[0x2C] = CLITERAL(Color) { 56, 180, 204, 255 };
+    palScreen[0x2D] = CLITERAL(Color) { 60, 60, 60, 255 };
+    palScreen[0x2E] = CLITERAL(Color) { 0, 0, 0, 255 };
+    palScreen[0x2F] = CLITERAL(Color) { 0, 0, 0, 255 };
 
-    palScreen[0x30] = olc::Pixel(236, 238, 236);
-    palScreen[0x31] = olc::Pixel(168, 204, 236);
-    palScreen[0x32] = olc::Pixel(188, 188, 236);
-    palScreen[0x33] = olc::Pixel(212, 178, 236);
-    palScreen[0x34] = olc::Pixel(236, 174, 236);
-    palScreen[0x35] = olc::Pixel(236, 174, 212);
-    palScreen[0x36] = olc::Pixel(236, 180, 176);
-    palScreen[0x37] = olc::Pixel(228, 196, 144);
-    palScreen[0x38] = olc::Pixel(204, 210, 120);
-    palScreen[0x39] = olc::Pixel(180, 222, 120);
-    palScreen[0x3A] = olc::Pixel(168, 226, 144);
-    palScreen[0x3B] = olc::Pixel(152, 226, 180);
-    palScreen[0x3C] = olc::Pixel(160, 214, 228);
-    palScreen[0x3D] = olc::Pixel(160, 162, 160);
-    palScreen[0x3E] = olc::Pixel(0, 0, 0);
-    palScreen[0x3F] = olc::Pixel(0, 0, 0);
+    palScreen[0x30] = CLITERAL(Color) { 236, 238, 236, 255 };
+    palScreen[0x31] = CLITERAL(Color) { 168, 204, 236, 255 };
+    palScreen[0x32] = CLITERAL(Color) { 188, 188, 236, 255 };
+    palScreen[0x33] = CLITERAL(Color) { 212, 178, 236, 255 };
+    palScreen[0x34] = CLITERAL(Color) { 236, 174, 236, 255 };
+    palScreen[0x35] = CLITERAL(Color) { 236, 174, 212, 255 };
+    palScreen[0x36] = CLITERAL(Color) { 236, 180, 176, 255 };
+    palScreen[0x37] = CLITERAL(Color) { 228, 196, 144, 255 };
+    palScreen[0x38] = CLITERAL(Color) { 204, 210, 120, 255 };
+    palScreen[0x39] = CLITERAL(Color) { 180, 222, 120, 255 };
+    palScreen[0x3A] = CLITERAL(Color) { 168, 226, 144, 255 };
+    palScreen[0x3B] = CLITERAL(Color) { 152, 226, 180, 255 };
+    palScreen[0x3C] = CLITERAL(Color) { 160, 214, 228, 255 };
+    palScreen[0x3D] = CLITERAL(Color) { 160, 162, 160, 255 };
+    palScreen[0x3E] = BLACK;
+    palScreen[0x3F] = BLACK;
 
-    sprScreen = new olc::Sprite(256, 240);
-    sprNameTable[0] = new olc::Sprite(256, 240);
-    sprNameTable[1] = new olc::Sprite(256, 240);
-    sprPatternTable[0] = new olc::Sprite(128, 128);
-    sprPatternTable[1] = new olc::Sprite(128, 128);
+    sprScreen = new Gui::Sprite(256, 240);
+    sprNameTable[0] = new Gui::Sprite(256, 240);
+    sprNameTable[1] = new Gui::Sprite(256, 240);
+    sprPatternTable[0] = new Gui::Sprite(128, 128);
+    sprPatternTable[1] = new Gui::Sprite(128, 128);
 }
 
 PPU::~PPU()
@@ -87,17 +87,17 @@ PPU::~PPU()
     delete sprPatternTable[1];
 }
 
-olc::Sprite& PPU::GetScreen()
+Gui::Sprite& PPU::GetScreen()
 {
     return *sprScreen;
 }
 
-olc::Sprite& PPU::GetNameTable(uint8_t i)
+Gui::Sprite& PPU::GetNameTable(uint8_t i)
 {
     return *sprNameTable[i];
 }
 
-olc::Sprite& PPU::GetPatternTable(uint8_t i)
+Gui::Sprite& PPU::GetPatternTable(uint8_t i)
 {
     return *sprPatternTable[i];
 }
@@ -185,7 +185,8 @@ void PPU::ConnectCartrdige(const std::shared_ptr<Cartridge>& cartridge)
 void PPU::clock()
 {
     // Fake some noise for now
-    sprScreen->SetPixel(cycle - 1, scanline, palScreen[(rand() % 2) ? 0x3F : 0x30]);
+    int ind = (rand() % 2) ? 0x3F : 0x30;
+    sprScreen->setPixel(cycle - 1, scanline, palScreen[ind]);
 
     // Advance renderer - it never stops, it's relentless
     cycle++;

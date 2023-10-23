@@ -23,9 +23,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="external\PixelGameEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -1,5 +1,8 @@
 #include "Cartridge.h"
 
+#include "raylib.h"
+#include <iostream>
+
 Cartridge::Cartridge(const std::string& sFileName)
 {
     // iNES Format Header
@@ -18,17 +21,17 @@ Cartridge::Cartridge(const std::string& sFileName)
 
     bImageValid = false;
 
-    std::ifstream ifs;
+    std::ifstream ifs; // input file stream
     ifs.open(sFileName, std::ifstream::binary);
     if (ifs.is_open())
     {
+        SetWindowTitle(std::filesystem::path(sFileName).filename().string().c_str());
         // Read file header
         ifs.read((char*)&header, sizeof(sHeader));
 
         // If a "trainer" exists we just need to read past
         // it before we get to the good stuff
-        if (header.mapper1 & 0x04)
-            ifs.seekg(512, std::ios_base::cur);
+        if (header.mapper1 & 0x04) ifs.seekg(512, std::ios_base::cur);
 
         // Determine Mapper ID
         nMapperID = ((header.mapper2 >> 4) << 4) | (header.mapper1 >> 4);
