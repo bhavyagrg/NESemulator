@@ -84,7 +84,7 @@ bool Application::OnUserCreate()
 	// Load the cartridge
 	cart = std::make_shared<Cartridge>("./nesfiles/super_mario_bros.nes");
 
-	// Insert into NES
+	// Insert cartridge into bus
 	bus.insertCartridge(cart);
 
 	// Extract dissassembly
@@ -142,8 +142,8 @@ bool Application::OnUserUpdate(float fElapsedTime)
 
 	if (GetKey(olc::Key::P).bPressed) (++nSelectedPalette) &= 0x07;
 
-	DrawCpu(516, 2);
-	DrawCode(516, 72, 26);
+	DrawCpu(516, 2); // draw the state of the cpu
+	DrawCode(516, 72, 26);// draw some disassembled code
 
 	// Draw Palettes & Pattern Tables ==============================================
 	const int nSwatchSize = 6;

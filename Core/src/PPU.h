@@ -44,23 +44,23 @@ public:
 
 	// Changed To for API breaking subsequent PGE Update
 private:
-	olc::Pixel palScreen[0x40];
-	olc::Sprite* sprScreen;
-	olc::Sprite* sprNameTable[2];
-	olc::Sprite* sprPatternTable[2];
+	olc::Pixel palScreen[0x40];// array of colours of nes or palette of nes
+	olc::Sprite* sprScreen; // sprite that represent full screen output
+	olc::Sprite* sprNameTable[2];// sprite that represents graphical depiction of both name tables
+	olc::Sprite* sprPatternTable[2];// sprite that represents depiction of both pattern tables
 
 public:
-	// Debugging Utilities
+	// Debugging Utilities --->> functions to access the sprites
 	olc::Sprite& GetScreen();
 	olc::Sprite& GetNameTable(uint8_t i);
 	olc::Sprite& GetPatternTable(uint8_t i,uint8_t palette);
 
 	olc::Pixel& GetColourFromPaletteRam(uint8_t palette, uint8_t pixel);
 
-	bool frame_complete = false;
+	bool frame_complete = false; // boolean that representes when a frame is complete
 
 private:
-	int16_t scanline = 0; // which row on the screen
+	int16_t scanline = 0; // represents which row on the screen
 	int16_t cycle = 0; // which col on the screen
 
 	union

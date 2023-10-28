@@ -272,10 +272,12 @@ void PPU::clock()
     cycle++;
     if (cycle >= 341)
     {
+        // if cycle is greater than 341 reset cycle and increase scanline
         cycle = 0;
         scanline++;
         if (scanline >= 261)
         {
+            // we are scrolling across the screen in the x direction and y direction
             scanline = -1;
             frame_complete = true;
         }

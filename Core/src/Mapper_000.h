@@ -1,5 +1,7 @@
 #pragma once
 #include "Mapper.h"
+
+// Mapper_000 derived from abstract Mapper class
 class Mapper_000 : public Mapper
 {
 

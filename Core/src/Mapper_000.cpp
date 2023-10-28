@@ -11,8 +11,8 @@ bool Mapper_000::cpuMapRead(uint16_t address, uint32_t& mapped_address)
     if (address >= 0x8000 && address <= 0xFFFF)
     {
         // ---- 32K ROM maps exactly half the range of 16 bit address hence 0x7FFF
-        // ---- if we got only one bank of PRG ROM then it is a 16K ROM hence 0x3FFF
-        mapped_address = address & (nPRGBanks > 1 ? 0x7FFF : 0x3FFF);
+        // ---- if we got only one bank of PRG ROM then it is a 16K ROM hence 0x3FFF . we mirror with 16K rom
+        mapped_address = address & (nPRGBanks > 1 ? 0x7FFF : 0x3FFF); // ,masking the address
         return true;
     }
 
@@ -35,7 +35,7 @@ bool Mapper_000::ppuMapRead(uint16_t address, uint32_t& mapped_address)
 {
     if (address >= 0x0000 && address <= 0x1FFF)
     {
-        // No Bank Swicthing in case of PPU
+        // No Bank Swicthing in case of PPU, there is nothing to do
         mapped_address = address;
         return true;
     }

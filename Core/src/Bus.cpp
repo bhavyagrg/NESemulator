@@ -16,7 +16,7 @@ Bus::~Bus()
 
 void Bus::cpuWrite(uint16_t address, uint8_t data)
 {
-	// --- priority given to cartridge for read and write operations over cpu or ppu--------
+	// --- priority given to cartridge for read and write operations over cpu or ppu, if cartridge read or write funtion returns true then that will be taken over by the cartridge--------
 	if (cart->cpuWrite(address, data))
 	{
 

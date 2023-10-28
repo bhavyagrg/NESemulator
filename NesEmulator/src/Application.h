@@ -20,8 +20,8 @@ public:
 
 
 public:
-	std::shared_ptr<Cartridge> cart;
-	Bus bus;
+	std::shared_ptr<Cartridge> cart; // pointer to cartridge object
+	Bus bus;// object of type bus which now represents our nes
 	std::map<uint16_t, std::string> mapAsm;
 	bool bEmulationRun = false;
 	float fResidualTime = 0.0f;
