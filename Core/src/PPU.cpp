@@ -113,7 +113,7 @@ olc::Sprite& PPU::GetPatternTable(uint8_t i,uint8_t palette)
             for (uint16_t row = 0; row < 8; row++)
             {
                 // To read from the pattern memory we need ppu read function
-                uint8_t tile_lsb = ppuRead(i * 0x1000 + nOffset + row + 0);
+                uint8_t tile_lsb = ppuRead(i * 0x1000 + nOffset + row + 0);//least significant bit plane
                 uint8_t tile_msb = ppuRead(i * 0x1000 + nOffset + row + 8);
 
 
@@ -158,6 +158,12 @@ uint8_t PPU::cpuRead(uint16_t address, bool rdonly)
     case 0x0001: //------ Mask
         break;
     case 0x0002: //------ Status
+        status.vertical_blank = 1;
+        // when we read from the status reg we are interesed in the top 3 bits. the unused bits tend to fill with noise or likely what was last on the data buffer
+        data = (status.reg & 0xE0) | (ppu_data_buffer & 0x1F);
+        // reading from status register also clear vertical blank flag and address latch
+        status.vertical_blank = 0;
+        address_latch = 0;
         break;
     case 0x0003: //------ OAM Address
         break;
@@ -168,6 +174,15 @@ uint8_t PPU::cpuRead(uint16_t address, bool rdonly)
     case 0x0006: //------ PPU Address
         break;
     case 0x0007: //------ PPU Data
+        // we can read from the data reg but it is dealyed by 1 read, so store it in a buffer
+        data = ppu_data_buffer;
+        ppu_data_buffer = ppuRead(ppu_address); // and read the data of ppu_add to the buffer
+
+        /* above delay is true for whole emulation except where the palette resides
+         so we need to put in a special case to handle pallete addresses.*/
+        if (ppu_address >= 0x3f00)
+            data = ppu_data_buffer;
+        ppu_address++;
         break;
     }
 
@@ -179,21 +194,76 @@ void PPU::cpuWrite(uint16_t address, uint8_t data)
     switch (address)
     {
     case 0x0000: //------ Control
+        control.reg = data;
         break;
     case 0x0001: //------ Mask
+        mask.reg = data;
         break;
-    case 0x0002: //------ Status
+    case 0x0002: //------ Status -- can't write to it
         break;
     case 0x0003: //------ OAM Address
         break;
     case 0x0004: //------ OAM Data
         break;
     case 0x0005: //------ Scroll
+        if (address_latch == 0)
+        {
+          /*   First write to scroll register contains X offset in pixel space
+             which we split into coarse and fine x values*/
+            fine_x = data & 0x07;
+            tram_addr.coarse_x = data >> 3;
+            address_latch = 1;
+        }
+        else
+        {
+             /*First write to scroll register contains Y offset in pixel space
+             which we split into coarse and fine Y values*/
+            tram_addr.fine_y = data & 0x07;
+            tram_addr.coarse_y = data >> 3;
+            address_latch = 0;
+        }
         break;
     case 0x0006: //------ PPU Address
+        if (address_latch == 0)
+        {
+            /* PPU address bus can be accessed by CPU via the ADDR and DATA
+             registers. The fisrt write to this register latches the high byte
+             of the address, the second is the low byte. Note the writes
+             are stored in the tram register...*/
+
+            /*tram_addr.reg = (uint16_t)((data & 0x3F) << 8) | (tram_addr.reg & 0x00FF);
+            address_latch = 1;*/
+
+            ppu_address = (ppu_address & 0x00FF) | (data << 8);
+            address_latch = 1;
+        }
+        else
+        {
+            /* ...when a whole address has been written, the internal vram address
+             buffer is updated. Writing to the PPU is unwise during rendering
+             as the PPU will maintam the vram address automatically whilst
+             rendering the scanline position.*/
+
+            /*tram_addr.reg = (tram_addr.reg & 0xFF00) | data;
+            vram_addr = tram_addr;
+            address_latch = 0;*/
+
+            ppu_address = (ppu_address & 0xFF00) | data;
+            address_latch = 0;
+        }
         break;
     case 0x0007: //------ PPU Data
+        //ppuWrite(vram_addr.reg, data);
+        ///* All writes from PPU data automatically increment the nametable
+        // address depending upon the mode set in the control register.
+        // If set to vertical mode, the increment is 32, so it skips
+        // one whole nametable row; in horizontal mode it just increments
+        // by 1, moving to the next column*/
+        //vram_addr.reg += (control.increment_mode ? 32 : 1);
+        ppuWrite(ppu_address, data);
+        ppu_address++;
         break;
+
     }
 }
 
@@ -207,10 +277,13 @@ uint8_t PPU::ppuRead(uint16_t address, bool rdonly)
     {
 
     }
+    //pattern mem
     else if (address >= 0x0000 && address <= 0x1FFF)
     {
+        //first dimension choses whether it's left side or right side of the array
         data = pattern_mem[(address & 0x1000) >> 12][address & 0x0FFF];
     }
+    //name table mem
     else if (address >= 0x2000 && address <= 0x3EFF)
     {
 
@@ -265,6 +338,18 @@ void PPU::ConnectCartrdige(const std::shared_ptr<Cartridge>& cartridge)
 
 void PPU::clock()
 {
+    if (scanline == -1 && cycle == 1)
+    {
+        status.vertical_blank = 0;
+    }
+
+    if (scanline == 241 && cycle == 1)
+    {
+        status.vertical_blank = 1;
+        if (control.enable_nmi)
+            nmi = true;
+    }
+
     // Fake some noise for now
     sprScreen->SetPixel(cycle - 1, scanline, palScreen[(rand() % 2) ? 0x3F : 0x30]);
 

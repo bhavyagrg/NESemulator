@@ -63,6 +63,7 @@ private:
 	int16_t scanline = 0; // represents which row on the screen
 	int16_t cycle = 0; // which col on the screen
 
+	// status register
 	union
 	{
 		struct
@@ -76,6 +77,7 @@ private:
 		uint8_t reg;
 	}status;
 
+	//mask register---->> Mask register is just a series of switches that determine which parts of the PPU are turned on or off
 	union
 	{
 		struct
@@ -93,6 +95,7 @@ private:
 		uint8_t reg;
 	} mask;
 
+	// control register
 	union PPUCTRL
 	{
 		struct
@@ -135,12 +138,10 @@ private:
 	uint8_t fine_x = 0x00;
 
 	// Internal communications
-	uint8_t address_latch = 0x00;
-	uint8_t ppu_data_buffer = 0x00;
+	uint8_t address_latch = 0x00;// to know whether i am writing to a low byte or a high byte
+	uint8_t ppu_data_buffer = 0x00;// when we read from ppu it's delayed by one byte , so we need to buffer it
+	uint16_t ppu_address = 0x0000; // to store the compiled address
 
-	// Pixel "dot" position information
-	int16_t scanline = 0;
-	int16_t cycle = 0;
 
 	// Background rendering
 	uint8_t bg_next_tile_id = 0x00;
@@ -152,23 +153,8 @@ private:
 	uint16_t bg_shifter_attrib_lo = 0x0000;
 	uint16_t bg_shifter_attrib_hi = 0x0000;
 
-public:
-	// Communications with Main Bus
-	uint8_t cpuRead(uint16_t addr, bool rdonly = false);
-	void    cpuWrite(uint16_t addr, uint8_t  data);
-
-	// Communications with PPU Bus
-	uint8_t ppuRead(uint16_t addr, bool rdonly = false);
-	void    ppuWrite(uint16_t addr, uint8_t data);
-
-private:
-	// The Cartridge or "GamePak"
-	std::shared_ptr<Cartridge> cart;
 
 public:
-	// Interface
-	void ConnectCartridge(const std::shared_ptr<Cartridge>& cartridge);
-	void clock();
 	void reset();
 	bool nmi = false;
 };
