@@ -1,4 +1,4 @@
 #pragma once
 
-#include "src/Bus.h"
-#include "src/CPU.h"
+#include "include/Bus.h"
+#include "include/CPU.h"

@@ -1,9 +1,9 @@
 CXX = clang++
 CXX_VERSION = c++20
 
-NAME = libnescore
+NAME = libgui
 
-INCLUDE = -Iinclude/ -I../Gui/ -I../Gui/external/raylib/include
+INCLUDE = -Iinclude/ -Iexternal/raylib/include
 SRC_DIR = src
 
 INTERMEDIATE_DIR = ./out/obj/
@@ -20,10 +20,10 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS) $(TARGET_DIR)
 	$(info [+] Generating $(TARGET))
-	ar r $@ $(OBJECTS) 
+	ar rc $@ $(OBJECTS)
 
 $(INTERMEDIATE_DIR)%.o: %.cpp $(INTERMEDIATE_DIR)
-	$(CXX) -std=$(CXX_VERSION) $(INCLUDE) -c $< -o $@	
+	$(CXX) -std=$(CXX_VERSION) $(INCLUDE) -fPIC  -c $< -o $@	
 
 # path checks
 CHECK_PATH = $(shell test -e $(path))
