@@ -176,13 +176,13 @@ uint8_t PPU::cpuRead(uint16_t address, bool rdonly)
     case 0x0007: //------ PPU Data
         // we can read from the data reg but it is dealyed by 1 read, so store it in a buffer
         data = ppu_data_buffer;
-        ppu_data_buffer = ppuRead(ppu_address); // and read the data of ppu_add to the buffer
+        ppu_data_buffer = ppuRead(vram_addr.reg); // and read the data of ppu_add to the buffer
 
         /* above delay is true for whole emulation except where the palette resides
          so we need to put in a special case to handle pallete addresses.*/
-        if (ppu_address >= 0x3f00)
+        if (vram_addr.reg >= 0x3f00)
             data = ppu_data_buffer;
-        ppu_address++;
+        vram_addr.reg += (control.increment_mode ? 32 : 1);
         break;
     }
 
@@ -195,6 +195,9 @@ void PPU::cpuWrite(uint16_t address, uint8_t data)
     {
     case 0x0000: //------ Control
         control.reg = data;
+        tram_addr.nametable_x = control.nametable_x;
+        tram_addr.nametable_y = control.nametable_y;
+
         break;
     case 0x0001: //------ Mask
         mask.reg = data;
@@ -231,11 +234,10 @@ void PPU::cpuWrite(uint16_t address, uint8_t data)
              of the address, the second is the low byte. Note the writes
              are stored in the tram register...*/
 
-            /*tram_addr.reg = (uint16_t)((data & 0x3F) << 8) | (tram_addr.reg & 0x00FF);
-            address_latch = 1;*/
-
-            ppu_address = (ppu_address & 0x00FF) | (data << 8);
+            tram_addr.reg = (uint16_t)((data & 0x3F) << 8) | (tram_addr.reg & 0x00FF);
             address_latch = 1;
+
+  
         }
         else
         {
