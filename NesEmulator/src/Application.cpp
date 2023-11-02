@@ -84,6 +84,9 @@ bool Application::OnUserCreate()
 	// Load the cartridge
 	cart = std::make_shared<Cartridge>("./nesfiles/super_mario_bros.nes");
 
+	if (!cart->ImageValid())
+		return false;
+
 	// Insert cartridge into bus
 	bus.insertCartridge(cart);
 
@@ -92,7 +95,6 @@ bool Application::OnUserCreate()
 
 	// Reset NES
 	bus.reset();
-
 	return true;
 }
 

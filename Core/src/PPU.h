@@ -146,7 +146,7 @@ private:
 	// Background rendering
 	uint8_t bg_next_tile_id = 0x00;
 	uint8_t bg_next_tile_attrib = 0x00;
-	uint8_t bg_next_tile_lsb = 0x00;
+	uint8_t bg_next_tile_lsb = 0x00;// represent plane of the pattern memory for the next 8 pixels
 	uint8_t bg_next_tile_msb = 0x00;
 	uint16_t bg_shifter_pattern_lo = 0x0000;
 	uint16_t bg_shifter_pattern_hi = 0x0000;
