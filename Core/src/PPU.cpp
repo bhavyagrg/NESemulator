@@ -260,8 +260,8 @@ void PPU::cpuWrite(uint16_t address, uint8_t data)
         // one whole nametable row; in horizontal mode it just increments
         // by 1, moving to the next column*/
         //vram_addr.reg += (control.increment_mode ? 32 : 1);
+        ppu_address += (control.increment_mode ? 32 : 1); // if it's 1 , increment along x axis , if it's 32 skipping 32 tiles in x axis, which is same as going down a row in y axis
         ppuWrite(ppu_address, data);
-        ppu_address++;
         break;
 
     }
@@ -286,6 +286,34 @@ uint8_t PPU::ppuRead(uint16_t address, bool rdonly)
     //name table mem
     else if (address >= 0x2000 && address <= 0x3EFF)
     {
+        address &= 0x0FFF;
+
+        if (cart->mirror == Cartridge::MIRROR::VERTICAL)
+        {
+            // Vertical
+            if (address >= 0x0000 && address <= 0x03FF)
+                data = vRam[0][address & 0x03FF];
+            if (address >= 0x0400 && address <= 0x07FF)
+                data = vRam[1][address & 0x03FF];
+            if (address >= 0x0800 && address <= 0x0BFF)
+                data = vRam[0][address & 0x03FF];
+            if (address >= 0x0C00 && address <= 0x0FFF)
+                data = vRam[1][address & 0x03FF];
+        }
+
+        else if (cart->mirror == Cartridge::MIRROR::HORIZONTAL)
+        {
+            // Horizontal
+            if (address >= 0x0000 && address <= 0x03FF)
+                data = vRam[0][address & 0x03FF];
+            if (address >= 0x0400 && address <= 0x07FF)
+                data = vRam[0][address & 0x03FF];
+            if (address >= 0x0800 && address <= 0x0BFF)
+                data = vRam[1][address & 0x03FF];
+            if (address >= 0x0C00 && address <= 0x0FFF)
+                data = vRam[1][address & 0x03FF];
+        }
+
 
     }
     // Palette memory
@@ -317,7 +345,31 @@ void PPU::ppuWrite(uint16_t address, uint8_t data)
     }
     else if (address >= 0x2000 && address <= 0x3EFF)
     {
-
+        address &= 0x0FFF;
+        if(cart->mirror == Cartridge::MIRROR::VERTICAL)
+        {
+            // Vertical
+            if (address >= 0x0000 && address <= 0x03FF)
+                vRam[0][address & 0x03FF] = data;
+            if (address >= 0x0400 && address <= 0x07FF)
+                vRam[1][address & 0x03FF] = data;
+            if (address >= 0x0800 && address <= 0x0BFF)
+                vRam[0][address & 0x03FF] = data;
+            if (address >= 0x0C00 && address <= 0x0FFF)
+                vRam[1][address & 0x03FF] = data;
+        }
+        else if (cart->mirror == Cartridge::MIRROR::HORIZONTAL)
+        {
+            // Horizontal
+            if (address >= 0x0000 && address <= 0x03FF)
+                vRam[0][address & 0x03FF] = data;
+            if (address >= 0x0400 && address <= 0x07FF)
+                vRam[0][address & 0x03FF] = data;
+            if (address >= 0x0800 && address <= 0x0BFF)
+                vRam[1][address & 0x03FF] = data;
+            if (address >= 0x0C00 && address <= 0x0FFF)
+                vRam[1][address & 0x03FF] = data;
+        }
     }
     // Palette memory
     else if (address >= 0x3F00 && address <= 0x3FFF)
@@ -351,7 +403,7 @@ void PPU::clock()
     }
 
     // Fake some noise for now
-    sprScreen->SetPixel(cycle - 1, scanline, palScreen[(rand() % 2) ? 0x3F : 0x30]);
+    //sprScreen->SetPixel(cycle - 1, scanline, palScreen[(rand() % 2) ? 0x3F : 0x30]);
 
     // Advance renderer - it never stops, it's relentless
     cycle++;

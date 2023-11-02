@@ -82,7 +82,7 @@ void Application::DrawCode(int x, int y, int nLines)
 bool Application::OnUserCreate()
 {
 	// Load the cartridge
-	cart = std::make_shared<Cartridge>("./nesfiles/donkey_kong.nes");
+	cart = std::make_shared<Cartridge>("./nesfiles/super_mario_bros.nes");
 
 	// Insert cartridge into bus
 	bus.insertCartridge(cart);
@@ -161,6 +161,18 @@ bool Application::OnUserUpdate(float fElapsedTime)
 
 
 	DrawSprite(0, 0, &bus.ppu.GetScreen(), 2);
+
+	olc::Sprite& s = bus.ppu.GetPatternTable(1, nSelectedPalette);
+	for (uint8_t y = 0; y < 30; y++)
+	{
+		for (uint8_t x = 0; x < 32; x++)
+		{
+			//DrawString(x * 16, y * 16, hex((uint32_t)bus.ppu.vRam[0][y * 32 + x], 2));
+			uint8_t id = (uint32_t)bus.ppu.vRam[0][y * 32 + x];
+			DrawPartialSprite(x * 16, y * 16, &s,
+				(id & 0x0F) << 3, ((id >> 4) & 0x0F) << 3, 8, 8, 2);
+		}
+	}
 
 	return true;
 }
