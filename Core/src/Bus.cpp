@@ -23,11 +23,19 @@ void Bus::cpuWrite(uint16_t address, uint8_t data)
 	}
 
 	else if (address >= 0x0000 && address <= 0x1FFF)
+		// System RAM Address Range. The range covers 8KB, though
+		// there is only 2KB available. That 2KB is "mirrored"
+		// through this address range. Using bitwise AND to mask
+		// the bottom 11 bits is the same as addr % 2048.
 		cpuRam[address & 0x07FF] = data;
 
 	// PPU 
 	else if (address >= 0x2000 && address <= 0x3FFF)
 	{
+		// PPU Address range. The PPU only has 8 primary registers
+		// and these are repeated throughout this range. We can
+		// use bitwise AND operation to mask the bottom 3 bits, 
+		// which is the equivalent of addr % 8.
 		// mirroring to 8 entries that we need
 		ppu.cpuWrite(address & 0x0007, data);
 	}
@@ -44,6 +52,7 @@ uint8_t Bus::cpuRead(uint16_t address, bool bReadOnly)
 	}
 
 	else if (address >= 0x0000 && address <= 0x1FFF)
+		// System RAM Address Range, mirrored every 2048
 		data = cpuRam[address & 0x07FF];
 
 	// PPU 
@@ -66,7 +75,9 @@ void Bus::insertCartridge(const std::shared_ptr<Cartridge>& cartridge)
 
 void Bus::reset()
 {
+	cart->reset();
 	cpu.reset();
+	ppu.reset();
 	nSystemClockCounter = 0;
 }
 
@@ -79,6 +90,9 @@ void Bus::clock()
 		cpu.clock();
 	}
 
+	// The PPU is capable of emitting an interrupt to indicate the
+	// vertical blanking period has been entered. If it has, we need
+	// to send that irq to the CPU.
 	if (ppu.nmi)
 	{
 		ppu.nmi = false;

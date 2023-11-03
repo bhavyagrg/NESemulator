@@ -98,10 +98,21 @@ bool Application::OnUserCreate()
 	return true;
 }
 
+	int count = 0;
 // Any update to the window like resize, etc
 bool Application::OnUserUpdate(float fElapsedTime)
 {
+	std::cout << "Hello " << count++<<std::endl;
+
 	Clear(olc::BLACK);
+
+	if (GetKey(olc::Key::SPACE).bPressed)
+		bEmulationRun = !bEmulationRun;
+	if (GetKey(olc::Key::R).bPressed)
+		bus.reset();
+	if (GetKey(olc::Key::P).bPressed)
+		(++nSelectedPalette) &= 0x07;
+
 	if (bEmulationRun)
 	{
 		if (fResidualTime > 0.0f)
@@ -139,10 +150,7 @@ bool Application::OnUserUpdate(float fElapsedTime)
 	}
 
 
-	if (GetKey(olc::Key::SPACE).bPressed) bEmulationRun = !bEmulationRun;
-	if (GetKey(olc::Key::R).bPressed) bus.reset();
-
-	if (GetKey(olc::Key::P).bPressed) (++nSelectedPalette) &= 0x07;
+	
 
 	DrawCpu(516, 2); // draw the state of the cpu
 	DrawCode(516, 72, 26);// draw some disassembled code
