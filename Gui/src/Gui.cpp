@@ -25,7 +25,7 @@ namespace Gui {
         SetConfigFlags(FLAG_WINDOW_RESIZABLE);
         InitWindow(width, height, "Nes Emulator");
 
-        font = LoadFontEx("assets/fonts/JetBrainsMono/JetBrainsMono-Regular.ttf", 20, 0, NULL);
+        font = LoadFontEx("assets/fonts/JetBrainsMono/JetBrainsMono-Regular.ttf", 20, 0, 0);
 
         SetTargetFPS(60);
     }
