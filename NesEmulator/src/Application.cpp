@@ -102,7 +102,6 @@ bool Application::OnUserCreate()
 // Any update to the window like resize, etc
 bool Application::OnUserUpdate(float fElapsedTime)
 {
-	std::cout << "Hello " << count++<<std::endl;
 
 	Clear(olc::BLACK);
 
@@ -120,7 +119,9 @@ bool Application::OnUserUpdate(float fElapsedTime)
 		else
 		{
 			fResidualTime += (1.0f / 60.0f) - fElapsedTime;
-			do { bus.clock(); } while (!bus.ppu.frame_complete);
+			do { 
+				bus.clock();
+			} while (!bus.ppu.frame_complete);
 			bus.ppu.frame_complete = false;
 		}
 	}
