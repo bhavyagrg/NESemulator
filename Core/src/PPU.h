@@ -154,8 +154,23 @@ private:
 	uint16_t bg_shifter_attrib_hi = 0x0000;
 
 
+private:
+	struct sObjectAttributeEntry
+	{
+		uint8_t y; // Y position  of sprite
+		uint8_t t_id; // tile id from pattern memory
+		uint8_t attribute;// flags which define how sprite should be rendered
+		uint8_t x; // X position of sprite
+	}OAM[64];
+
+	// OAM is an array of type sObjectAttributeEntry
 public:
 	void reset();
 	bool nmi = false;
+
+	uint8_t* pOAM = (uint8_t*)OAM; // pointer to the base if the array OAM
+
+	uint8_t oam_addr = 0x00;
+
 };
 

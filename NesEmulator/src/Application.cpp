@@ -82,7 +82,7 @@ void Application::DrawCode(int x, int y, int nLines)
 bool Application::OnUserCreate()
 {
 	// Load the cartridge
-	cart = std::make_shared<Cartridge>("./nesfiles/super_mario_bros.nes");
+	cart = std::make_shared<Cartridge>("./nesfiles/donkey_kong.nes");
 
 	if (!cart->ImageValid())
 		return false;
@@ -104,6 +104,17 @@ bool Application::OnUserUpdate(float fElapsedTime)
 {
 
 	Clear(olc::BLACK);
+
+	//held function pf pixelgame engine gives instantaneous state of any key on the keyboard to assemble the 8 - bit word which we will send to nes component 
+	bus.controller[0] = 0x00;
+	bus.controller[0] |= GetKey(olc::Key::X).bHeld ? 0x80 : 0x00;
+	bus.controller[0] |= GetKey(olc::Key::Z).bHeld ? 0x40 : 0x00;
+	bus.controller[0] |= GetKey(olc::Key::A).bHeld ? 0x20 : 0x00;
+	bus.controller[0] |= GetKey(olc::Key::S).bHeld ? 0x10 : 0x00;
+	bus.controller[0] |= GetKey(olc::Key::UP).bHeld ? 0x08 : 0x00;
+	bus.controller[0] |= GetKey(olc::Key::DOWN).bHeld ? 0x04 : 0x00;
+	bus.controller[0] |= GetKey(olc::Key::LEFT).bHeld ? 0x02 : 0x00;
+	bus.controller[0] |= GetKey(olc::Key::RIGHT).bHeld ? 0x01 : 0x00;
 
 	if (GetKey(olc::Key::SPACE).bPressed)
 		bEmulationRun = !bEmulationRun;
@@ -154,7 +165,17 @@ bool Application::OnUserUpdate(float fElapsedTime)
 	
 
 	DrawCpu(516, 2); // draw the state of the cpu
-	DrawCode(516, 72, 26);// draw some disassembled code
+	//DrawCode(516, 72, 26);// draw some disassembled code
+
+	// Draw OAM Contents (first 26 out of 64) ======================================
+	for (int i = 0; i < 26; i++)
+	{
+		std::string s = hex(i, 2) + ": (" + std::to_string(bus.ppu.pOAM[i * 4 + 3])
+			+ ", " + std::to_string(bus.ppu.pOAM[i * 4 + 0]) + ") "
+			+ "ID: " + hex(bus.ppu.pOAM[i * 4 + 1], 2) +
+			+" AT: " + hex(bus.ppu.pOAM[i * 4 + 2], 2);
+		DrawString(516, 72 + i * 10, s);
+	}
 
 	// Draw Palettes & Pattern Tables ==============================================
 	const int nSwatchSize = 6;

@@ -40,6 +40,20 @@ void Bus::cpuWrite(uint16_t address, uint8_t data)
 		ppu.cpuWrite(address & 0x0007, data);
 	}
 
+	else if (address == 0x4014)
+	{
+		dma_page = data;
+		dma_addr = 0x00;
+		dma_transfer = true;
+	}
+
+	// giving sensitivity to the two ports that represent the controller in nes
+	else if (address >= 0x4016 && address <= 0x4017)
+	{
+		// these ports takes a snapshot of the controller input
+		controller_state[address & 0x0001] = controller[address & 0x0001];
+	} // controller_state will be our shift reg for subsequent reads
+
 }
 
 uint8_t Bus::cpuRead(uint16_t address, bool bReadOnly)
@@ -60,6 +74,12 @@ uint8_t Bus::cpuRead(uint16_t address, bool bReadOnly)
 	{
 		// mirroring to 8 entries that we need
 		data = ppu.cpuRead(address & 0x0007, bReadOnly);
+	}
+
+	else if (address >= 0x4016 && address <= 0x4017)
+	{
+		data = (controller_state[address & 0x0001] & 0x80) > 0;
+		controller_state[address & 0x0001] <<= 1;
 	}
 
 	return data;
@@ -87,7 +107,42 @@ void Bus::clock()
 	// cpu clock runs three times slower than the ppu clock
 	if (nSystemClockCounter % 3 == 0)
 	{
-		cpu.clock();
+		if (dma_transfer)
+		{
+			// dma is synchronised with cpu clock, if it's not it's turn it has to wait for the right time to actually happen the dma transfer, using dma_dummy for it
+			if (dma_dummy)
+			{
+				//synchronisation
+				if (nSystemClockCounter % 2 == 1)// odd clock cycle
+				{
+					dma_dummy = false;
+				}
+			}
+			else
+			{
+				// dma transfer happens at even clock cycle
+				if (nSystemClockCounter % 2 == 0)// at even read data
+				{
+					dma_data = cpuRead(dma_page << 8 | dma_addr);
+				}
+				else //  on odd cycles write data to the ppu
+				{
+					ppu.pOAM[dma_addr] = dma_data;
+					dma_addr++;
+
+					// since it's initialised to zero, i know dma transfer has finished
+					if (dma_addr == 0x00)
+					{
+						dma_transfer = false;
+						dma_dummy = true;
+					}
+				}
+			}
+		}
+		else
+		{
+			cpu.clock();
+		}
 	}
 
 	// The PPU is capable of emitting an interrupt to indicate the

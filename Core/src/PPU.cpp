@@ -156,7 +156,7 @@ olc::Sprite& PPU::GetPatternTable(uint8_t i, uint8_t palette)
 				for (uint16_t col = 0; col < 8; col++)
 				{
 					// adding least significant bit to get the colour of a pixel, It will be give us a value between 0 and 3
-					uint8_t pixel = (tile_lsb & 0x01) + (tile_msb & 0x01);
+					uint8_t pixel = ((tile_lsb & 0x01) << 1) | (tile_msb & 0x01);
 					tile_lsb >>= 1; tile_msb >>= 1; // Shift by 1
 
 					// Now drawing that pixel value
@@ -274,7 +274,9 @@ uint8_t PPU::cpuRead(uint16_t address, bool rdonly)
 		case 0x0003: break;
 
 			// OAM Data
-		case 0x0004: break;
+		case 0x0004:
+			data = pOAM[oam_addr];
+			break;
 
 			// Scroll - Not Readable
 		case 0x0005: break;
@@ -322,8 +324,10 @@ void PPU::cpuWrite(uint16_t address, uint8_t data)
 	case 0x0002: //------ Status -- can't write to it
 		break;
 	case 0x0003: //------ OAM Address
+		oam_addr = data;
 		break;
 	case 0x0004: //------ OAM Data
+		pOAM[oam_addr] = data;
 		break;
 	case 0x0005: //------ Scroll
 		if (address_latch == 0)
