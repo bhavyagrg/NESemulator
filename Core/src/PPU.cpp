@@ -705,6 +705,7 @@ void PPU::clock()
 
 	if (scanline >= -1 && scanline < 240)
 	{
+		// Background Rendering ======================================================
 		if (scanline == 0 && cycle == 0)
 		{
 			// "Odd Frame" cycle skip
@@ -1154,12 +1155,14 @@ void PPU::clock()
 		bg_palette = (bg_pal1 << 1) | bg_pal0;
 	}
 
+	// Foreground =============================================================
 	uint8_t fg_pixel = 0x00;
 	uint8_t fg_palette = 0x00;
 	uint8_t fg_priority = 0x00;
 
 	if (mask.render_sprites)
 	{
+		bSpriteZeroBeingRendered = false;
 		for (uint8_t i = 0; i < sprite_count; i++)
 		{
 			// Scanline cycle has "collided" with sprite, shifters taking over
@@ -1187,7 +1190,7 @@ void PPU::clock()
 				{
 					if (i == 0) // Is this sprite zero?
 					{
-						//bSpriteZeroBeingRendered = true;
+						bSpriteZeroBeingRendered = true;
 					}
 
 					break;

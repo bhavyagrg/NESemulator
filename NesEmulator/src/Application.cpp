@@ -82,7 +82,7 @@ void Application::DrawCode(int x, int y, int nLines)
 bool Application::OnUserCreate()
 {
 	// Load the cartridge
-	cart = std::make_shared<Cartridge>("./nesfiles/super_mario_bros.nes");
+	cart = std::make_shared<Cartridge>("./nesfiles/super_mario_bros2.nes");
 
 	if (!cart->ImageValid())
 		return false;
@@ -98,7 +98,7 @@ bool Application::OnUserCreate()
 	return true;
 }
 
-	int count = 0;
+	
 // Any update to the window like resize, etc
 bool Application::OnUserUpdate(float fElapsedTime)
 {
@@ -107,10 +107,10 @@ bool Application::OnUserUpdate(float fElapsedTime)
 
 	//held function pf pixelgame engine gives instantaneous state of any key on the keyboard to assemble the 8 - bit word which we will send to nes component 
 	bus.controller[0] = 0x00;
-	bus.controller[0] |= GetKey(olc::Key::X).bHeld ? 0x80 : 0x00;
-	bus.controller[0] |= GetKey(olc::Key::Z).bHeld ? 0x40 : 0x00;
-	bus.controller[0] |= GetKey(olc::Key::A).bHeld ? 0x20 : 0x00;
-	bus.controller[0] |= GetKey(olc::Key::S).bHeld ? 0x10 : 0x00;
+	bus.controller[0] |= GetKey(olc::Key::X).bHeld ? 0x80 : 0x00;  // A button
+	bus.controller[0] |= GetKey(olc::Key::Z).bHeld ? 0x40 : 0x00; // B button
+	bus.controller[0] |= GetKey(olc::Key::A).bHeld ? 0x20 : 0x00; //Select
+	bus.controller[0] |= GetKey(olc::Key::S).bHeld ? 0x10 : 0x00; //Start
 	bus.controller[0] |= GetKey(olc::Key::UP).bHeld ? 0x08 : 0x00;
 	bus.controller[0] |= GetKey(olc::Key::DOWN).bHeld ? 0x04 : 0x00;
 	bus.controller[0] |= GetKey(olc::Key::LEFT).bHeld ? 0x02 : 0x00;

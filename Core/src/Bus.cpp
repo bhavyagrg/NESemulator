@@ -78,6 +78,7 @@ uint8_t Bus::cpuRead(uint16_t address, bool bReadOnly)
 
 	else if (address >= 0x4016 && address <= 0x4017)
 	{
+		// Read out the MSB of the controller status word
 		data = (controller_state[address & 0x0001] & 0x80) > 0;
 		controller_state[address & 0x0001] <<= 1;
 	}
@@ -99,6 +100,11 @@ void Bus::reset()
 	cpu.reset();
 	ppu.reset();
 	nSystemClockCounter = 0;
+	dma_page = 0x00;
+	dma_addr = 0x00;
+	dma_data = 0x00;
+	dma_dummy = true;
+	dma_transfer = false;
 }
 
 void Bus::clock()
