@@ -130,3 +130,9 @@ bool Cartridge::ppuWrite(uint16_t address, uint8_t data)
     else
         return false;
 }
+
+void Cartridge::reset(){
+
+}
+
+

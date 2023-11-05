@@ -15,11 +15,12 @@ public:
     bool OnUserCreate();
     bool OnUserUpdate(float fElapsedTime);
     void Start();
-
+    void DrawGame();
+    void HandleInput();
 
 public:
     std::shared_ptr<Cartridge> cart;
-    Bus nes;
+    Bus bus;
     std::map<uint16_t, std::string> mapAsm;
     bool bEmulationRun = false;
     float fResidualTime = 0.0f;

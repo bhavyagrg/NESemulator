@@ -1,5 +1,7 @@
 #include "CPU.h"
 #include "Bus.h"
+#include <iostream>
+
 
 CPU::CPU()
 {
@@ -1048,6 +1050,7 @@ uint8_t CPU::IND() // Indirect Addressing
 			// with the readable output
 			while (addr <= (uint32_t)nStop)
 			{
+				
 				line_addr = addr;
 
 				// Prefix line with instruction address
@@ -1137,6 +1140,5 @@ uint8_t CPU::IND() // Indirect Addressing
 				// incremental index is not sufficient.
 				mapLines[line_addr] = sInst;
 			}
-
 			return mapLines;
 		}

@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "LibGui.h"
+#include "raylib.h"
 
 Application::Application() {
 }
@@ -20,7 +21,7 @@ void Application::DrawRam(int x, int y, uint16_t nAddr, int nRows, int nColumns)
         std::string sOffset = "$" + hex(nAddr, 4) + ":";
         for (int col = 0; col < nColumns; col++)
         {
-            sOffset += " " + hex(nes.cpuRead(nAddr, true), 2);
+            sOffset += " " + hex(bus.cpuRead(nAddr, true), 2);
             nAddr += 1;
         }
         Gui::DrawText(sOffset.c_str(), nRamX, nRamY);
@@ -32,24 +33,24 @@ void Application::DrawCpu(int x, int y)
 {
     std::string status = "STATUS: ";
     Gui::DrawText(x, y, status, WHITE);
-    Gui::DrawText(x + 68, y, "N", nes.cpu.status & CPU::N ? GREEN : RED);
-    Gui::DrawText(x + 80, y, "V", nes.cpu.status & CPU::V ? GREEN : RED);
-    Gui::DrawText(x + 96, y, "-", nes.cpu.status & CPU::U ? GREEN : RED);
-    Gui::DrawText(x + 112, y, "B", nes.cpu.status & CPU::B ? GREEN : RED);
-    Gui::DrawText(x + 128, y, "D", nes.cpu.status & CPU::D ? GREEN : RED);
-    Gui::DrawText(x + 144, y, "I", nes.cpu.status & CPU::I ? GREEN : RED);
-    Gui::DrawText(x + 160, y, "Z", nes.cpu.status & CPU::Z ? GREEN : RED);
-    Gui::DrawText(x + 178, y, "C", nes.cpu.status & CPU::C ? GREEN : RED);
-    Gui::DrawText(x, y + 20, "PC: $" + hex(nes.cpu.pc, 4));
-    Gui::DrawText(x, y + 40, "A: $" + hex(nes.cpu.ac, 2) + "  [" + std::to_string(nes.cpu.ac) + "]");
-    Gui::DrawText(x, y + 60, "X: $" + hex(nes.cpu.x, 2) + "  [" + std::to_string(nes.cpu.x) + "]");
-    Gui::DrawText(x, y + 80, "Y: $" + hex(nes.cpu.y, 2) + "  [" + std::to_string(nes.cpu.y) + "]");
-    Gui::DrawText(x, y + 100, "Stack P: $" + hex(nes.cpu.stkp, 4));
+    Gui::DrawText(x + 68, y, "N", bus.cpu.status & CPU::N ? GREEN : RED);
+    Gui::DrawText(x + 80, y, "V", bus.cpu.status & CPU::V ? GREEN : RED);
+    Gui::DrawText(x + 96, y, "-", bus.cpu.status & CPU::U ? GREEN : RED);
+    Gui::DrawText(x + 112, y, "B", bus.cpu.status & CPU::B ? GREEN : RED);
+    Gui::DrawText(x + 128, y, "D", bus.cpu.status & CPU::D ? GREEN : RED);
+    Gui::DrawText(x + 144, y, "I", bus.cpu.status & CPU::I ? GREEN : RED);
+    Gui::DrawText(x + 160, y, "Z", bus.cpu.status & CPU::Z ? GREEN : RED);
+    Gui::DrawText(x + 178, y, "C", bus.cpu.status & CPU::C ? GREEN : RED);
+    Gui::DrawText(x, y + 20, "PC: $" + hex(bus.cpu.pc, 4));
+    Gui::DrawText(x, y + 40, "A: $" + hex(bus.cpu.ac, 2) + "  [" + std::to_string(bus.cpu.ac) + "]");
+    Gui::DrawText(x, y + 60, "X: $" + hex(bus.cpu.x, 2) + "  [" + std::to_string(bus.cpu.x) + "]");
+    Gui::DrawText(x, y + 80, "Y: $" + hex(bus.cpu.y, 2) + "  [" + std::to_string(bus.cpu.y) + "]");
+    Gui::DrawText(x, y + 100, "Stack P: $" + hex(bus.cpu.stkp, 4));
 }
 
 void Application::DrawCode(int x, int y, int nLines)
 {
-    auto it_a = mapAsm.find(nes.cpu.pc);
+    auto it_a = mapAsm.find(bus.cpu.pc);
     int nLineY = (nLines >> 1) * 20 + y;
     if (it_a != mapAsm.end())
     {
@@ -64,7 +65,7 @@ void Application::DrawCode(int x, int y, int nLines)
         }
     }
 
-    it_a = mapAsm.find(nes.cpu.pc);
+    it_a = mapAsm.find(bus.cpu.pc);
     nLineY = (nLines >> 1) * 20 + y;
     if (it_a != mapAsm.end())
     {
@@ -81,26 +82,58 @@ void Application::DrawCode(int x, int y, int nLines)
 
 bool Application::OnUserCreate()
 {
+
     Gui::Window::Init(780, 480);
+    
+    std::string nesFile = "./assets/SuperMarioBros.nes"; 
+    
+    std::cout << "[+] loading " << nesFile << std::endl;
 
-    // Load the cartridge
-    cart = std::make_shared<Cartridge>("assets/SuperMarioBros.nes");
+    cart = std::make_shared<Cartridge>(nesFile);
 
-    // Insert into NES
-    nes.insertCartridge(cart);
+	if (!cart->ImageValid())
+    {
+        std::cout << "[-] " << nesFile << " is not valid" << std::endl;
+		return false;
+    }
 
-    // Extract dissassembly
-    mapAsm = nes.cpu.disassemble(0x0000, 0xFFFF);
-
+	// Insert cartridge into bus
+	bus.insertCartridge(cart);
+    std::cout << "[+] cartridge inserted" << std::endl;
+    
+	// Extract dissassembly
+	mapAsm = bus.cpu.disassemble(0x0000, 0xFFFF);
+    std::cout << "[+] bus disassembled" << std::endl;
+	
     // Reset NES
-    nes.reset();
+	bus.reset();
+    
+    std::cout << "[+] " << nesFile <<  " file loaded successfully" << std::endl;
 
+	
     return true;
+}
+
+void Application::HandleInput(){
+
+    bus.controller[0] = 0x00;
+	bus.controller[0] |= IsKeyPressed(KEY_X) ? 0x80 : 0x00;  // A button
+	bus.controller[0] |= IsKeyPressed(KEY_Z) ? 0x40 : 0x00; // B button
+	bus.controller[0] |= IsKeyDown(KEY_A) ? 0x20 : 0x00; //Select
+	bus.controller[0] |= IsKeyDown(KEY_S) ? 0x10 : 0x00; //Start
+	bus.controller[0] |= IsKeyDown(KEY_UP) ? 0x08 : 0x00;
+	bus.controller[0] |= IsKeyDown(KEY_DOWN) ? 0x04 : 0x00;
+	bus.controller[0] |= IsKeyDown(KEY_LEFT) ? 0x02 : 0x00;
+	bus.controller[0] |= IsKeyDown(KEY_RIGHT) ? 0x01 : 0x00;
+
+    if (IsKeyReleased(KEY_SPACE)) bEmulationRun = !bEmulationRun;
+    if (IsKeyReleased(KEY_R)) bus.reset();
 }
 
 bool Application::OnUserUpdate(float fElapsedTime)
 {
-    //Clear(BLACK);
+    HandleInput();
+
     if (bEmulationRun)
     {
         if (fResidualTime > 0.0f)
@@ -108,8 +141,8 @@ bool Application::OnUserUpdate(float fElapsedTime)
         else
         {
             fResidualTime += (1.0f / 60.0f) - fElapsedTime;
-            do { nes.clock(); } while (!nes.ppu.frame_complete);
-            nes.ppu.frame_complete = false;
+            do { bus.clock(); } while (!bus.ppu.frame_complete);
+            bus.ppu.frame_complete = false;
         }
     }
     else
@@ -118,41 +151,56 @@ bool Application::OnUserUpdate(float fElapsedTime)
         if (IsKeyReleased(KEY_C))
         {
             // Clock enough times to execute a whole CPU instruction
-            do { nes.clock(); } while (!nes.cpu.complete());
+            do { bus.clock(); } while (!bus.cpu.complete());
             // CPU clock runs slower than system clock, so it may be
             // complete for additional system clock cycles. Drain
             // those out
-            do { nes.clock(); } while (nes.cpu.complete());
+            do { bus.clock(); } while (bus.cpu.complete());
         }
 
         // Emulate one whole frame
         if (IsKeyReleased(KEY_F))
         {
             // Clock enough times to draw a single frame
-            do { nes.clock(); } while (!nes.ppu.frame_complete);
+            do { bus.clock(); } while (!bus.ppu.frame_complete);
             // Use residual clock cycles to complete current instruction
-            do { nes.clock(); } while (!nes.cpu.complete());
+            do { bus.clock(); } while (!bus.cpu.complete());
             // Reset frame completion flag
-            nes.ppu.frame_complete = false;
+            bus.ppu.frame_complete = false;
         }
     }
 
-    if (IsKeyReleased(KEY_SPACE)) bEmulationRun = !bEmulationRun;
-    if (IsKeyReleased(KEY_R)) nes.reset();
+    DrawGame();
 
+    return true;
+}
 
-    int scale = GetRenderWidth() / 256;
-    scale -= 1;
+void Application::DrawGame(){
+    const int res = 256;
+    const int rightContentWidth = 216;
 
-    int end = 256 * scale + 8;
-    //end = 516;
+    int W = GetRenderWidth();
+    W -= rightContentWidth;
+    int H = GetRenderHeight();
+    int scale = 1;
+
+    if(W <= H){
+        scale = W / res;
+    }else{
+        scale = H / res;
+    }
+   
+    int end = GetRenderWidth() - rightContentWidth;
     DrawCpu(end, 2);
     DrawCode(end, 120, 16);
 
-
-    nes.ppu.GetScreen().draw(0, 0, scale);
-
-    return true;
+    int x = W - (scale * res);
+    x /= 2;
+    int y = H - (scale * res);
+    y /= 2;
+    // std::cout <<W << "x" <<  H << std::endl;
+    // std::cout <<x << ", " <<  y << std::endl;
+    bus.ppu.GetScreen().draw(x, y, scale);
 }
 
 void Application::Start() {
@@ -168,4 +216,3 @@ void Application::Start() {
         EndDrawing();
     }
 }
-

@@ -12,7 +12,7 @@ namespace Gui {
         Color color = BLACK;
 
         void setColor(Color color);
-        void setPixel(int x, int y, Color color);
+        void setPixel(int x, int y, Color& color);
         void draw(int x, int y, int scale = 1);
 
     private:

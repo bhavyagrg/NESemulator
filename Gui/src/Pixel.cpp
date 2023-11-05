@@ -14,6 +14,6 @@ namespace Gui {
 
 
     void Pixel::draw(int x, int y, int scale) {
-        DrawRectangle((x + mX) * scale, (y + mY) * scale, scale, scale, mColor);
+        DrawRectangle(x + (mX * scale), y + (mY * scale), scale, scale, mColor);
     }
 }
