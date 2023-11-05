@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cwchar>
 #include <iostream>
 #include <sstream>
 
@@ -27,4 +28,5 @@ public:
 
 private:
     std::string hex(uint32_t n, uint8_t d);
+    bool bIsFullScreen = false;
 };

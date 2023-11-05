@@ -85,24 +85,24 @@ bool Application::OnUserCreate()
 
     Gui::Window::Init(780, 480);
     
-    std::string nesFile = "./assets/SuperMarioBros.nes"; 
+    std::string nesFile = "./assets/super_mario_bros.nes"; 
     
     std::cout << "[+] loading " << nesFile << std::endl;
 
     cart = std::make_shared<Cartridge>(nesFile);
 
-	if (!cart->ImageValid())
+    if (!cart->ImageValid())
     {
         std::cout << "[-] " << nesFile << " is not valid" << std::endl;
-		return false;
+	return false;
     }
 
 	// Insert cartridge into bus
-	bus.insertCartridge(cart);
+    bus.insertCartridge(cart);
     std::cout << "[+] cartridge inserted" << std::endl;
     
 	// Extract dissassembly
-	mapAsm = bus.cpu.disassemble(0x0000, 0xFFFF);
+    mapAsm = bus.cpu.disassemble(0x0000, 0xFFFF);
     std::cout << "[+] bus disassembled" << std::endl;
 	
     // Reset NES
@@ -117,8 +117,8 @@ bool Application::OnUserCreate()
 void Application::HandleInput(){
 
     bus.controller[0] = 0x00;
-	bus.controller[0] |= IsKeyPressed(KEY_X) ? 0x80 : 0x00;  // A button
-	bus.controller[0] |= IsKeyPressed(KEY_Z) ? 0x40 : 0x00; // B button
+	bus.controller[0] |= IsKeyDown(KEY_X) ? 0x80 : 0x00;  // A button
+	bus.controller[0] |= IsKeyDown(KEY_Z) ? 0x40 : 0x00; // B button
 	bus.controller[0] |= IsKeyDown(KEY_A) ? 0x20 : 0x00; //Select
 	bus.controller[0] |= IsKeyDown(KEY_S) ? 0x10 : 0x00; //Start
 	bus.controller[0] |= IsKeyDown(KEY_UP) ? 0x08 : 0x00;
@@ -128,6 +128,7 @@ void Application::HandleInput(){
 
     if (IsKeyReleased(KEY_SPACE)) bEmulationRun = !bEmulationRun;
     if (IsKeyReleased(KEY_R)) bus.reset();
+    if (IsKeyReleased(KEY_F)) bIsFullScreen = !bIsFullScreen;
 }
 
 bool Application::OnUserUpdate(float fElapsedTime)
@@ -177,7 +178,7 @@ bool Application::OnUserUpdate(float fElapsedTime)
 
 void Application::DrawGame(){
     const int res = 256;
-    const int rightContentWidth = 216;
+    const int rightContentWidth = bIsFullScreen ? 0 : 224;
 
     int W = GetRenderWidth();
     W -= rightContentWidth;
@@ -190,10 +191,11 @@ void Application::DrawGame(){
         scale = H / res;
     }
    
-    int end = GetRenderWidth() - rightContentWidth;
-    DrawCpu(end, 2);
-    DrawCode(end, 120, 16);
-
+    if(!bIsFullScreen){
+        int end = GetRenderWidth() - rightContentWidth;
+        DrawCpu(end, 2);
+        DrawCode(end, 120, 16);
+    }
     int x = W - (scale * res);
     x /= 2;
     int y = H - (scale * res);
