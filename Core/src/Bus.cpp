@@ -40,6 +40,11 @@ void Bus::cpuWrite(uint16_t address, uint8_t data)
 		ppu.cpuWrite(address & 0x0007, data);
 	}
 
+	else if ((address >= 0x4000 && address <= 0x4013) || address == 0x4015 || address == 0x4017)// nes apu
+	{
+		apu.CPUWrite(address, data);
+	}
+
 	else if (address == 0x4014)
 	{
 		dma_page = data;
@@ -110,6 +115,7 @@ void Bus::reset()
 void Bus::clock()
 {
 	ppu.clock();
+	apu.clock();// also clock apu with every single bus clock
 	// cpu clock runs three times slower than the ppu clock
 	if (nSystemClockCounter % 3 == 0)
 	{

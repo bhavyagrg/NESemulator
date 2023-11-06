@@ -4,6 +4,7 @@
 #include<memory>
 #include "CPU.h"
 #include"PPU.h"
+#include"APU.h"
 #include "Cartridge.h"
 
 class Bus
@@ -15,6 +16,7 @@ public:
 	//Devices connected to the bus
 	CPU cpu; // --->> CPU 
 	PPU ppu;// ---->> PPU
+	APU apu;//----->> APU
 	std::array<uint8_t, 2048> cpuRam; // -->> RAM
 	std::shared_ptr<Cartridge> cart; // --->> The Cartridge
 
@@ -22,9 +24,12 @@ public:
 	uint8_t controller[2]; // to store instantaneous state of both controllers we will do that using keyboard
 
 
+
 	// Read and write for the Bus
 	void cpuWrite(uint16_t address, uint8_t data);
 	uint8_t cpuRead(uint16_t address, bool bReadOnly = false);
+
+	double dAudioSample = 0.0;
 
 public:
 	// --------------------System Interface-----------------

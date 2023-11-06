@@ -6,7 +6,10 @@
 #include "Bus.h"
 #include "CPU.h"
 
+#define		OLC_PGE_APPLICATION
 #include "external\PixelGameEngine.h"
+#define OLC_PGEX_SOUND
+#include "external\PGEX_Sound.h"
 
 
 class Application : public olc::PixelGameEngine {
@@ -16,6 +19,8 @@ public:
 	void DrawCpu(int x, int y);
 	void DrawCode(int x, int y, int nLines);
 	bool OnUserCreate();
+	bool EmulatorUpdateWithoutAudio(float fElapsedTime);
+	bool EmulatorUpdateWithAudio(float fElapsedTime);
 	bool OnUserUpdate(float fElapsedTime);
 
 
@@ -31,3 +36,5 @@ public:
 private:
 	std::string hex(uint32_t n, uint8_t d);
 };
+
+static Demo_olcNES* pInstance; // static variable that will hold a pointer to "this"

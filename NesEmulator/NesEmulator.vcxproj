@@ -152,6 +152,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="external\PGEX_Sound.h" />
     <ClInclude Include="external\PixelGameEngine.h" />
     <ClInclude Include="src\Application.h" />
   </ItemGroup>

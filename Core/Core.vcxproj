@@ -148,6 +148,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\APU.cpp" />
     <ClCompile Include="src\Mapper_000.cpp" />
     <ClCompile Include="src\Mapper.cpp" />
     <ClCompile Include="src\Cartridge.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="src\CPU.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\APU.h" />
     <ClInclude Include="src\Mapper_000.h" />
     <ClInclude Include="src\Mapper.h" />
     <ClInclude Include="src\Cartridge.h" />
