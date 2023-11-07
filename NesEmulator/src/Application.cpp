@@ -93,6 +93,9 @@ bool Application::OnUserCreate()
 	// Extract dissassembly
 	mapAsm = bus.cpu.disassemble(0x0000, 0xFFFF);
 
+	pInstance = this;
+	bus.SetSampleFrequency(44100);
+
 	olc::SOUND::InitialiseAudio(44100, 1, 8, 512);// 44100 is the sample rate for our sysytem and is really imp
 	olc::SOUND::SetUserSynthFunction(SoundOut);
 
@@ -103,16 +106,20 @@ bool Application::OnUserCreate()
 
 static float SoundOut(int nChannel, float fGlobalTime, float fTimeStamp)
 {
+	while (!pInstance->bus.clock())
+	{
 
+	}
+	return static_cast<float>(pInstance->bus.dAudioSample);
 }
 
-bool OnUserDestroy() override
+bool OnUserDestroy()override
 {
 	olc::SOUND::DestroyAudio();
 	return true;
 }
 
-bool EmulatorUpdateWithAudio(float fElapsedTime)
+bool Application::EmulatorUpdateWithAudio(float fElapsedTime)
 {
 	Clear(olc::BLACK);
 
@@ -181,7 +188,7 @@ bool EmulatorUpdateWithAudio(float fElapsedTime)
 	return true;
 }
 	
-bool OnUserUpdate(float fElapsedTime) override
+bool Application::OnUserUpdate(float fElapsedTime) override
 {
 	EmulatorUpdateWithAudio(fElapsedTime);
 	return true;

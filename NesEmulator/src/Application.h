@@ -37,4 +37,5 @@ private:
 	std::string hex(uint32_t n, uint8_t d);
 };
 
-static Demo_olcNES* pInstance; // static variable that will hold a pointer to "this"
+
+static Demo_olcNES* pInstance; // static variable that will hold a pointer to "this" of derived pixelgameengine derived class

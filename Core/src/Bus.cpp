@@ -91,6 +91,12 @@ uint8_t Bus::cpuRead(uint16_t address, bool bReadOnly)
 	return data;
 }
 
+void Bus::SetSampleFrequency(uint32_t sample_rate)
+{
+	dAudioTimePerSystemSample = 1.0 / (double)sample_rate;
+	dAudioTimePerNESClock = 1.0 / 5369318.0; //PPu clock freq --> apu will be clocked at the the same ppu freq
+}
+
 void Bus::insertCartridge(const std::shared_ptr<Cartridge>& cartridge)
 {
 	// Connect bus to the cartridge
@@ -112,7 +118,7 @@ void Bus::reset()
 	dma_transfer = false;
 }
 
-void Bus::clock()
+bool Bus::clock()
 {
 	ppu.clock();
 	apu.clock();// also clock apu with every single bus clock
@@ -157,6 +163,17 @@ void Bus::clock()
 		}
 	}
 
+	// Synchronising with audio
+	bool bAudioSampleReady = false;
+	dAudioTime += dAudioTimePerNESClock;
+	//audio sample ready to be delivered
+	if (dAudioTime >= dAudioTimePerSystemSample)
+	{
+		dAudioTime -= dAudioTimePerSystemSample;// reset
+		dAudioSample = apu.GetOutputSample();// get the current valid sample from the apu
+		bAudioSampleReady = true;
+	}
+
 	// The PPU is capable of emitting an interrupt to indicate the
 	// vertical blanking period has been entered. If it has, we need
 	// to send that irq to the CPU.
@@ -166,4 +183,5 @@ void Bus::clock()
 		cpu.nonMaskableInterruptRequestSiq();
 	}
 	nSystemClockCounter++;
+	return bAudioSampleReady;
 }
