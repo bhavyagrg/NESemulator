@@ -97,14 +97,17 @@ bool Application::OnUserCreate()
 	bus.SetSampleFrequency(44100);
 
 	olc::SOUND::InitialiseAudio(44100, 1, 8, 512);// 44100 is the sample rate for our sysytem and is really imp
-	olc::SOUND::SetUserSynthFunction(SoundOut);
+	olc::SOUND::SetUserSynthFunction(SoundOut);// we have to tell the sound extension the name of this function we will do this using SetUserSynthFunction function, it can call it when it needs a new sample
 
 	// Reset NES
 	bus.reset();
 	return true;
 }
 
-static float SoundOut(int nChannel, float fGlobalTime, float fTimeStamp)
+//nChannel -->> what channel it wants that sample to be for
+// fGlobalTime -->> time since the application started
+// fTimeStep --->> 1 over sample rate that we specified earlier
+static float SoundOut(int nChannel, float fGlobalTime, float fTimeStep)
 {
 	while (!pInstance->bus.clock())
 	{
@@ -113,7 +116,7 @@ static float SoundOut(int nChannel, float fGlobalTime, float fTimeStamp)
 	return static_cast<float>(pInstance->bus.dAudioSample);
 }
 
-bool OnUserDestroy()override
+bool OnUserDestroy() override
 {
 	olc::SOUND::DestroyAudio();
 	return true;
