@@ -1,6 +1,6 @@
 #pragma region license_and_help
 /*
-	
+	olcPixelGameEngine.h
 
 	+-------------------------------------------------------------+
 	|           OneLoneCoder Pixel Game Engine v2.23              |
@@ -4127,7 +4127,7 @@ namespace olc
 		{
 			nLastFPS = nFrameCount;
 			fFrameTimer -= 1.0f;
-			std::string sTitle = sAppName + " - FPS: " + std::to_string(nFrameCount);
+			std::string sTitle = "OneLoneCoder.com - Pixel Game Engine - " + sAppName + " - FPS: " + std::to_string(nFrameCount);
 			platform->SetWindowTitle(sTitle);
 			nFrameCount = 0;
 		}
@@ -6893,4 +6893,3 @@ namespace olc
 // O------------------------------------------------------------------------------O
 // | END OF OLC_PGE_APPLICATION                                                   |
 // O------------------------------------------------------------------------------O
-

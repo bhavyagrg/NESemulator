@@ -5,10 +5,8 @@
 
 #include "Bus.h"
 #include "CPU.h"
-
-#define		OLC_PGE_APPLICATION
 #include "external\PixelGameEngine.h"
-#define OLC_PGEX_SOUND
+
 #include "external\PGEX_Sound.h"
 
 
@@ -20,8 +18,10 @@ public:
 	void DrawCode(int x, int y, int nLines);
 	bool OnUserCreate();
 	bool EmulatorUpdateWithoutAudio(float fElapsedTime);
+	static float SoundOut(int nChannel, float fGlobalTime, float fTimeStep);
+	bool OnUserDestroy();
 	bool EmulatorUpdateWithAudio(float fElapsedTime);
-	bool OnUserUpdate(float fElapsedTime);
+	bool OnUserUpdate(float fElapsedTime) ; 
 
 
 public:
@@ -38,4 +38,4 @@ private:
 };
 
 
-static Demo_olcNES* pInstance; // static variable that will hold a pointer to "this" of derived pixelgameengine derived class
+static Application* pInstance; // static variable that will hold a pointer to "this" of derived pixelgameengine derived class

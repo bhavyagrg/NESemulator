@@ -1,4 +1,5 @@
 #define OLC_PGE_APPLICATION
+#define OLC_PGEX_SOUND
 #include "Application.h"
 
 Application::Application() { sAppName = "NES Emulator"; }
@@ -82,7 +83,7 @@ void Application::DrawCode(int x, int y, int nLines)
 bool Application::OnUserCreate()
 {
 	// Load the cartridge
-	cart = std::make_shared<Cartridge>("./nesfiles/popeye.nes");
+	cart = std::make_shared<Cartridge>("./nesfiles/donkey_kong.nes");
 
 	if (!cart->ImageValid())
 		return false;
@@ -98,16 +99,17 @@ bool Application::OnUserCreate()
 
 	olc::SOUND::InitialiseAudio(44100, 1, 8, 512);// 44100 is the sample rate for our sysytem and is really imp
 	olc::SOUND::SetUserSynthFunction(SoundOut);// we have to tell the sound extension the name of this function we will do this using SetUserSynthFunction function, it can call it when it needs a new sample
+	//SetUserSynthFunction tells the sound extension that , we are generating audio samples , so please call function in (soundout) periodically
 
 	// Reset NES
 	bus.reset();
 	return true;
 }
 
-//nChannel -->> what channel it wants that sample to be for
+// nChannel -->> what channel it wants that sample to be for
 // fGlobalTime -->> time since the application started
 // fTimeStep --->> 1 over sample rate that we specified earlier
-static float SoundOut(int nChannel, float fGlobalTime, float fTimeStep)
+float Application::SoundOut(int nChannel, float fGlobalTime, float fTimeStep)
 {
 	while (!pInstance->bus.clock())
 	{
@@ -116,7 +118,7 @@ static float SoundOut(int nChannel, float fGlobalTime, float fTimeStep)
 	return static_cast<float>(pInstance->bus.dAudioSample);
 }
 
-bool OnUserDestroy() override
+bool Application:: OnUserDestroy() 
 {
 	olc::SOUND::DestroyAudio();
 	return true;
@@ -146,32 +148,33 @@ bool Application::EmulatorUpdateWithAudio(float fElapsedTime)
 
 
 
-	DrawCpu(516, 2); // draw the state of the cpu
+	//DrawCpu(516, 2); // draw the state of the cpu
 	//DrawCode(516, 72, 26);// draw some disassembled code
 
 	// Draw OAM Contents (first 26 out of 64) ======================================
-	for (int i = 0; i < 26; i++)
+	/*for (int i = 0; i < 26; i++)
 	{
 		std::string s = hex(i, 2) + ": (" + std::to_string(bus.ppu.pOAM[i * 4 + 3])
 			+ ", " + std::to_string(bus.ppu.pOAM[i * 4 + 0]) + ") "
 			+ "ID: " + hex(bus.ppu.pOAM[i * 4 + 1], 2) +
 			+" AT: " + hex(bus.ppu.pOAM[i * 4 + 2], 2);
 		DrawString(516, 72 + i * 10, s);
-	}
+	}*/
 
 	// Draw Palettes & Pattern Tables ==============================================
-	const int nSwatchSize = 6;
-	for (int p = 0; p < 8; p++) // For each palette
-		for (int s = 0; s < 4; s++) // For each index
-			FillRect(516 + p * (nSwatchSize * 5) + s * nSwatchSize, 340,
-				nSwatchSize, nSwatchSize, bus.ppu.GetColourFromPaletteRam(p, s));
+	//const int nSwatchSize = 6;
+	//for (int p = 0; p < 8; p++) // For each palette
+	//	for (int s = 0; s < 4; s++) // For each index
+	//		FillRect(516 + p * (nSwatchSize * 5) + s * nSwatchSize, 340,
+	//			nSwatchSize, nSwatchSize, bus.ppu.GetColourFromPaletteRam(p, s));
 
 	// Draw selection reticule around selected palette
-	DrawRect(516 + nSelectedPalette * (nSwatchSize * 5) - 1, 339, (nSwatchSize * 4), nSwatchSize, olc::WHITE);
+	//DrawRect(516 + nSelectedPalette * (nSwatchSize * 5) - 1, 339, (nSwatchSize * 4), nSwatchSize, olc::WHITE);
 
 
-	DrawSprite(516, 348, &bus.ppu.GetPatternTable(0, nSelectedPalette));
+	/*DrawSprite(516, 348, &bus.ppu.GetPatternTable(0, nSelectedPalette));
 	DrawSprite(648, 348, &bus.ppu.GetPatternTable(1, nSelectedPalette));
+	*/
 
 
 	DrawSprite(0, 0, &bus.ppu.GetScreen(), 2);
@@ -191,7 +194,7 @@ bool Application::EmulatorUpdateWithAudio(float fElapsedTime)
 	return true;
 }
 	
-bool Application::OnUserUpdate(float fElapsedTime) override
+bool Application::OnUserUpdate(float fElapsedTime) 
 {
 	EmulatorUpdateWithAudio(fElapsedTime);
 	return true;
