@@ -1,5 +1,5 @@
 #pragma once
 
-#include "src/Gui.h"
-#include "src/Sprite.h"
-#include "src/Pixel.h"
+#include "include/Gui.h"
+#include "include/Sprite.h"
+#include "include/Pixel.h"

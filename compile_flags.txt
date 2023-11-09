@@ -1,0 +1,11 @@
+-xc++
+
+-INesCore/
+-INesCore/include
+
+-IGui/
+-IGui/include
+-IGui/external/raylib/include
+
+-INesEmulator/include
+
