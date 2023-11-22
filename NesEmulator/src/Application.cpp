@@ -83,7 +83,7 @@ void Application::DrawCode(int x, int y, int nLines)
 bool Application::OnUserCreate()
 {
 	// Load the cartridge
-	cart = std::make_shared<Cartridge>("./nesfiles/donkey_kong.nes");
+	cart = std::make_shared<Cartridge>("./nesfiles/super_mario_bros.nes");
 
 	if (!cart->ImageValid())
 		return false;

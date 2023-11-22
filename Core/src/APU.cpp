@@ -145,6 +145,8 @@ void APU::clock()
 		// above will generate a pulse square waveform, so setting output of sequencer to the pulse sample
 		//pulse1_sample = (double)pulse1_seq.output;
 
+		
+
 		// function taken from nesdev wiki
 		pulse1_osc.frequency = 1789773.0 / (16.0 * (double)(pulse1_seq.reload + 1));
 		pulse1_sample = pulse1_osc.sample(dGlobalTime);

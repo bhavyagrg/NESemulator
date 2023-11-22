@@ -38,7 +38,7 @@ private:
 				if (counter_value == 0xFFFF)
 				{
 					// reset our counter value to reload value and set our output to be the least significant bit of our output data
-					counter_value = reload;
+					counter_value = reload + 1;
 					funcManip(sequence); // this lambda function will be provided somewhere else but it's going to operate on the sequence variable contained in the sequencer struct 
 					output = sequence & 0x00000001;
 				}
