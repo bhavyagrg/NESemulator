@@ -121,7 +121,7 @@ void Bus::reset()
 bool Bus::clock()
 {
 	ppu.clock();
-	apu.clock();// also clock apu with every single bus clock
+	//apu.clock();// also clock apu with every single bus clock -- uncomment once audio is working
 	// cpu clock runs three times slower than the ppu clock
 	if (nSystemClockCounter % 3 == 0)
 	{
